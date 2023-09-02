@@ -1,23 +1,5 @@
 import styled from "@emotion/styled";
-import { Rate, Modal } from "antd";
-export const Body = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 200px;
-`;
-
-export const Wrapper = styled.div`
-  width: 1200px;
-  /* height: 1715px; */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid black;
-  margin-top: 35px;
-`;
+import { Rate } from "antd";
 
 export const WriteWrapper = styled.div`
   width: 100%;
@@ -58,23 +40,6 @@ export const WriteInfoInput = styled.input`
   font-size: 18px;
 `;
 
-export const CheckScoreBox = styled.div`
-  width: 80px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const CheckStat = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  :hover {
-    color: orange;
-  }
-`;
-
 export const WriteCommentBox = styled.div`
   width: 100%;
   border: 1px solid lightgray;
@@ -112,75 +77,6 @@ export const WriteCommentInfoBtn = styled.button`
   cursor: pointer;
 `;
 
-export const CommentBoxs = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-export const CommentBox = styled.div`
-  width: 100%;
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-start;
-  border-bottom: 1px solid lightgray;
-`;
-
-export const CommentBoxInfo = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const CommentBoxImg = styled.img`
-  scale: 0.85;
-  margin-right: 15px;
-`;
-
-export const CommentInfo = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const CommentProfile = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  margin-bottom: 5px;
-`;
-
-export const CommentProfileName = styled.div`
-  margin-right: 10px;
-  font-size: 16px;
-  font-weight: 700;
-`;
-
-export const Comment = styled.div`
-  font-size: 16px;
-  color: #4f4f4f;
-`;
-
-export const CommentDate = styled.div`
-  font-size: 12px;
-  color: #bdbdbd;
-  margin-left: 75px;
-`;
-
 export const StarInput = styled(Rate)`
   margin-bottom: 9px;
-`;
-
-export const PasswordModal = styled(Modal)``;
-
-export const PasswordInput = styled.input`
-  display: flex;
-  flex-direction: column;
 `;

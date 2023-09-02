@@ -1,11 +1,22 @@
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, type MouseEvent } from "react";
 import BoardCommentWriteUI from "./CommentWrite.presenter";
-import { CREATE_COMMENT, FETCH_COMMENT } from "../Comment.queries";
+import {
+  CREATE_COMMENT,
+  FETCH_COMMENT,
+  UPDATE_BOARD_COMMENT,
+} from "./CommentWrite.queries";
 import { useMutation } from "@apollo/client";
-import { errorEmpty, success } from "../../../../../commons/libraries/modal";
+import {
+  errorEmpty,
+  errorInput,
+  success,
+} from "../../../../../commons/libraries/modal";
 import { useRouter } from "next/router";
+import type { IBoardCommentWriter } from "./CommentWrite.type";
 
-export default function BoardCommentWriter(): JSX.Element {
+export default function BoardCommentWriter(
+  props: IBoardCommentWriter
+): JSX.Element {
   const router = useRouter();
 
   const [writer, setWriter] = useState("");
@@ -64,6 +75,33 @@ export default function BoardCommentWriter(): JSX.Element {
     setPassword("");
   };
 
+  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+
+  const onClickUpdateComment = async (
+    event: MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    if (contents === "") {
+      errorEmpty("댓글");
+      return;
+    }
+    try {
+      await updateBoardComment({
+        variables: {
+          updateBoardCommentInput: {
+            contents,
+            rating,
+          },
+          password,
+          boardCommentId: props.el?._id,
+        },
+      });
+      props.setIsEdit?.(false);
+      success("댓글 수정");
+    } catch (error) {
+      errorInput("비밀번호");
+    }
+  };
+
   return (
     <BoardCommentWriteUI
       onChangeWriter={onChangeWriter}
@@ -71,10 +109,13 @@ export default function BoardCommentWriter(): JSX.Element {
       onChangeContents={onChangeContents}
       onClickSubmit={onClickSubmit}
       setRating={setRating}
+      onClickUpdateComment={onClickUpdateComment}
       writer={writer}
       password={password}
       contents={contents}
       length={length}
+      isEdit={props.isEdit}
+      el={props.el}
     />
   );
 }

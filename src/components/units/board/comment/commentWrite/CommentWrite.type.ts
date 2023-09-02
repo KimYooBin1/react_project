@@ -1,15 +1,23 @@
-import type { ChangeEvent } from "react";
-import type { IQuery } from "../../../../../commons/types/generated/types";
+import type { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
+import type { IBoardComment } from "../../../../../commons/types/generated/types";
 
-export interface IBoardCommentWriter {
+export interface IBoardCommentWriterUI {
   onClickSubmit: () => void;
   onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onClickUpdateComment: (event: MouseEvent<HTMLButtonElement>) => Promise<void>;
   setRating: (event: any) => void;
   writer: string;
   password: string;
   contents: string;
-  data?: Pick<IQuery, "fetchBoardComments">;
   length: string;
+  isEdit?: boolean;
+  el?: IBoardComment;
+}
+
+export interface IBoardCommentWriter {
+  isEdit?: boolean;
+  setIsEdit?: Dispatch<SetStateAction<boolean>>;
+  el?: IBoardComment;
 }

@@ -10,7 +10,7 @@ export default function BoardWriteUI(props: IBoardCommentWrite): JSX.Element {
   return (
     <info.Body>
       <info.Wrapper>
-        <BoardCommentWriter />
+        <BoardCommentWriter isEdit={false} />
         <div style={{ width: "100%", height: "700px", overflow: "auto" }}>
           <InfiniteScroll
             pageStart={0}

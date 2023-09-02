@@ -1,20 +1,24 @@
-import type { IBoardCommentWriter } from "./CommentWrite.type";
+import type { IBoardCommentWriterUI } from "./CommentWrite.type";
 import * as info from "./CommentWrite.styles";
 export default function BoardCommentWriteUI(
-  props: IBoardCommentWriter
+  props: IBoardCommentWriterUI
 ): JSX.Element {
   return (
     <info.WriteWrapper>
-      <info.WriteTitle>
-        <info.WriteImg src="/img/title_img.png" />
-        <info.WriteSpan>댓글</info.WriteSpan>
-      </info.WriteTitle>
+      {props.isEdit === false && (
+        <info.WriteTitle>
+          <info.WriteImg src="/img/title_img.png" />
+          <info.WriteSpan>댓글</info.WriteSpan>
+        </info.WriteTitle>
+      )}
+
       <info.WriteInfo>
         <info.WriteInfoInput
           type="text"
           placeholder="작성자"
           onChange={props.onChangeWriter}
-          value={props.writer}
+          readOnly={props.isEdit}
+          value={props.writer !== "" ? props.writer : props.el?.writer ?? ""}
         />
         <info.WriteInfoInput
           type="password"
@@ -32,14 +36,32 @@ export default function BoardCommentWriteUI(
                   이에 대한 민형사상 책임은 게시자에게 있습니다."
           onChange={props.onChangeContents}
           maxLength={100}
-          value={props.contents}
+          value={
+            props.contents !== "" ? props.contents : props.el?.contents ?? ""
+          }
         />
         <info.WriteCommentInfoBox>
           <info.WriteCommentInfoText>
-            <span>{props.length !== "" ? props.length : "0"}</span>/100
+            <span>
+              {props.contents !== "" //댓글 부분 수정 요망
+                ? props.contents.length
+                : props.el?.contents.length ?? 0}
+            </span>
+            /100
           </info.WriteCommentInfoText>
-          <info.WriteCommentInfoBtn onClick={props.onClickSubmit}>
-            등록하기
+          <info.WriteCommentInfoBtn
+            onClick={
+              props.isEdit === true //댓글 부분 수정 요망
+                ? props.onClickUpdateComment
+                : props.onClickSubmit
+            }
+            style={
+              props.isEdit === true
+                ? { backgroundColor: "orange", border: "none" }
+                : { backgroundColor: "black" }
+            }
+          >
+            {props.isEdit === true ? "수정" : "등록"}하기
           </info.WriteCommentInfoBtn>
         </info.WriteCommentInfoBox>
       </info.WriteCommentBox>
