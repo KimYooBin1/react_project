@@ -5,7 +5,11 @@ import { Rate } from "antd";
 import { useState } from "react";
 import type { ChangeEvent, MouseEvent } from "react";
 
-import { DELETE_COMMENT, FETCH_COMMENT } from "./Comment.queries";
+import {
+  DELETE_COMMENT,
+  FETCH_COMMENT,
+  UPDATE_BOARD_COMMENT,
+} from "./Comment.queries";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { errorInput, success } from "../../../../commons/libraries/modal";
@@ -13,15 +17,31 @@ import { errorInput, success } from "../../../../commons/libraries/modal";
 export default function BoardCommentItem(
   props: IBoardCommentItem
 ): JSX.Element {
+  const [isEdit, setIsEdit] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const router = useRouter();
+
+  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+  const [commentPW, setCommentPw] = useState("");
+  const [commentContents, setCommentContents] = useState("");
+
   const [deleteBoardComment] = useMutation(DELETE_COMMENT);
   const [deletePW, setPW] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
   const [deleteId, setDeletId] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
+  const [rating, setRating] = useState(0);
+
   const onChangeDeletePW = (event: ChangeEvent<HTMLInputElement>): void => {
     setPW(event.target.value);
   };
+
+  const onChangePW = (event: ChangeEvent<HTMLInputElement>): void => {
+    setCommentPw(event.target.value);
+  };
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    setCommentContents(event.target.value);
+  };
+
   const toggleModal = (): void => {
     setIsOpen((prev) => !prev);
   };
@@ -53,8 +73,29 @@ export default function BoardCommentItem(
       errorInput("비밀번호");
     }
   };
-  const onClickEditComment = (event: MouseEvent<HTMLImageElement>): void => {
+  const onClickEditComment = (): void => {
     setIsEdit(true);
+  };
+
+  const onClickUpdateComment = async (
+    event: MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    try {
+      await updateBoardComment({
+        variables: {
+          updateBoardCommentInput: {
+            contents: commentContents,
+            rating,
+          },
+          password: commentPW,
+          boardCommentId: event.currentTarget.id,
+        },
+      });
+      setIsEdit(false);
+      success("댓글 수정");
+    } catch (error) {
+      errorInput("비밀번호");
+    }
   };
 
   return (
@@ -105,9 +146,22 @@ export default function BoardCommentItem(
         <>
           <info.WriteWrapper>
             <info.WriteInfo>
-              <info.WriteInfoInput type="text" placeholder="작성자" />
-              <info.WriteInfoInput type="password" placeholder="비밀번호" />
-              <info.StarInput allowHalf defaultValue={0} />
+              <info.WriteInfoInput
+                type="text"
+                placeholder="작성자"
+                readOnly
+                value={props?.el.writer}
+              />
+              <info.WriteInfoInput
+                type="password"
+                placeholder="비밀번호"
+                onChange={onChangePW}
+              />
+              <info.StarInput
+                allowHalf
+                defaultValue={props.el.rating}
+                onChange={setRating}
+              />
             </info.WriteInfo>
             <info.WriteCommentBox>
               <info.WriteComment
@@ -117,12 +171,25 @@ export default function BoardCommentItem(
                   이에 대한 민형사상 책임은 게시자에게 있습니다."
                 // onChange={props.onChangeContents}
                 maxLength={100}
+                defaultValue={props?.el.contents}
+                onChange={onChangeContents}
               />
               <info.WriteCommentInfoBox>
                 <info.WriteCommentInfoText>
-                  <span>{"0"}</span>/100
+                  <span>
+                    {commentContents === ""
+                      ? props?.el.contents.length
+                      : commentContents.length}
+                  </span>
+                  /100
                 </info.WriteCommentInfoText>
-                <info.WriteCommentInfoBtn>수정하기</info.WriteCommentInfoBtn>
+                <info.WriteCommentInfoBtn
+                  style={{ backgroundColor: "orange", border: "none" }}
+                  id={props.el?._id}
+                  onClick={onClickUpdateComment}
+                >
+                  수정하기
+                </info.WriteCommentInfoBtn>
               </info.WriteCommentInfoBox>
             </info.WriteCommentBox>
           </info.WriteWrapper>
