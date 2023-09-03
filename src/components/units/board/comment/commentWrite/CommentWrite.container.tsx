@@ -74,7 +74,9 @@ export default function BoardCommentWriter(
     setContents("");
     setPassword("");
   };
-
+  const onClickClose = (): void => {
+    props.setIsEdit?.(false);
+  };
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
 
   const onClickUpdateComment = async (
@@ -110,6 +112,7 @@ export default function BoardCommentWriter(
       onClickSubmit={onClickSubmit}
       setRating={setRating}
       onClickUpdateComment={onClickUpdateComment}
+      onClickClose={onClickClose}
       writer={writer}
       password={password}
       contents={contents}

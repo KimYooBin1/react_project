@@ -7,6 +7,7 @@ export interface IBoardCommentWriterUI {
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickUpdateComment: (event: MouseEvent<HTMLButtonElement>) => Promise<void>;
+  onClickClose: () => void;
   setRating: (event: any) => void;
   writer: string;
   password: string;

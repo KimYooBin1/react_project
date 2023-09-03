@@ -80,3 +80,8 @@ export const WriteCommentInfoBtn = styled.button`
 export const StarInput = styled(Rate)`
   margin-bottom: 9px;
 `;
+
+export const CloseCommentEditBtn = styled.button`
+  cursor: pointer;
+  margin-left: 640px;
+`;
