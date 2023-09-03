@@ -29,8 +29,12 @@ const MenuBtn = styled.button`
   cursor: pointer;
   border-left: 1px solid white;
   border-right: 1px solid white;
+
+  transition: all 0.5s;
+
   :hover {
     background-color: #ff9900;
+    font-size: 20px;
   }
 `;
 const NAVIGATION_MENUS = [
