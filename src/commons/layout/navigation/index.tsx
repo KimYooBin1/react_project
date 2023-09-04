@@ -38,14 +38,15 @@ const MenuBtn = styled.button`
   }
 `;
 const NAVIGATION_MENUS = [
-  { name: "라이브게시판", page: "/page" },
-  { name: "라이브상품", page: "/product" },
-  { name: "마이페이지", page: "/mypage" },
+  { name: "라이브게시판", page: "/boards/page" },
+  { name: "라이브상품", page: "/boards/product" },
+  { name: "마이페이지", page: "/boards/mypage" },
+  { name: "시바시바", page: "/openapi" },
 ];
 export default function LayoutNavigation(): JSX.Element {
   const router = useRouter();
   const onClick = (event: MouseEvent<HTMLButtonElement>): void => {
-    void router.push(`/boards/${event.currentTarget.id}`);
+    void router.push(`${event.currentTarget.id}`);
   };
   return (
     <Wrapper>
