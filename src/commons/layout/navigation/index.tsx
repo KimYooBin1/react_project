@@ -38,6 +38,7 @@ const MenuBtn = styled.button`
   }
 `;
 const NAVIGATION_MENUS = [
+  { name: "출석부", page: "/attendance" },
   { name: "라이브게시판", page: "/boards/page" },
   { name: "라이브상품", page: "/boards/product" },
   { name: "마이페이지", page: "/boards/mypage" },
