@@ -90,18 +90,33 @@ export const Btn = styled.button`
 export const YouTube = styled(ReactPlayer)`
   margin: auto;
 `;
-export const LikeBox = styled.div`
-  border: 1px solid red;
+export const LikeBoxs = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin-top: 150px;
 `;
+export const LikeBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0px 10px;
+`;
 export const Like = styled(LikeOutlined)`
   color: #ffd600;
   font-size: 28px;
+  cursor: pointer;
+  :hover {
+    font-size: 30px;
+  }
 `;
 export const DisLike = styled(DislikeOutlined)`
   color: #828282;
   font-size: 28px;
+  cursor: pointer;
+  :hover {
+    font-size: 30px;
+  }
+`;
+export const LikeBoxText = styled.span`
+  text-align: center;
 `;

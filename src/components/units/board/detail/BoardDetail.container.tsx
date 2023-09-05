@@ -1,10 +1,17 @@
 import BoardDetailUI from "./BoardDetail.presenter";
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
-import { fetchBoard, DELETE_BOARD } from "./BoardDetail.queries";
+import {
+  fetchBoard,
+  DELETE_BOARD,
+  LIKE_BOARD,
+  DISLIKE_BOARD,
+} from "./BoardDetail.queries";
 import type {
   IMutation,
   IMutationDeleteBoardArgs,
+  IMutationDislikeBoardArgs,
+  IMutationLikeBoardArgs,
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
@@ -27,6 +34,7 @@ export default function BoardDetail(): JSX.Element {
     Pick<IMutation, "deleteBoard">,
     IMutationDeleteBoardArgs
   >(DELETE_BOARD);
+
   const onClickList = (): void => {
     void router.push(`/boards/page`);
   };
@@ -49,13 +57,53 @@ export default function BoardDetail(): JSX.Element {
     if (typeof router.query.boardId !== "string") return;
     void router.push(`/boards/${router.query.boardId}/edit`);
   };
+  const [likeBoard] = useMutation<
+    Pick<IMutation, "likeBoard">,
+    IMutationLikeBoardArgs
+  >(LIKE_BOARD);
+  const [dislikeBoard] = useMutation<
+    Pick<IMutation, "dislikeBoard">,
+    IMutationDislikeBoardArgs
+  >(DISLIKE_BOARD);
 
+  const onClickLike = () => {
+    // console.log("click like button");
+    if (typeof router.query.boardId !== "string") return;
+    likeBoard({
+      variables: { boardId: router.query.boardId },
+      refetchQueries: [
+        {
+          query: fetchBoard,
+          variables: {
+            boardId: router.query.boardId,
+          },
+        },
+      ],
+    });
+  };
+  const onClickDisLike = () => {
+    // console.log("click dislike button");
+    if (typeof router.query.boardId !== "string") return;
+    dislikeBoard({
+      variables: { boardId: router.query.boardId },
+      refetchQueries: [
+        {
+          query: fetchBoard,
+          variables: {
+            boardId: router.query.boardId,
+          },
+        },
+      ],
+    });
+  };
   return (
     <BoardDetailUI
       data={data}
       onClickList={onClickList}
       onClickDelete={onClickDelete}
       onClickEdit={onClickEdit}
+      onClickLike={onClickLike}
+      onClickDisLike={onClickDisLike}
     />
   );
 }

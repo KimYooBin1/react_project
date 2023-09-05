@@ -40,11 +40,20 @@ export default function BoardDetailUI(props: IBoardDetailUi): JSX.Element {
             />
           )}
         </info.Contents>
-        {/* <info.LikeBox>
-          <info.Like span={100} />
-          <info.DisLike />
-          <div>100</div>
-        </info.LikeBox> */}
+        <info.LikeBoxs>
+          <info.LikeBox>
+            <info.Like rev={""} onClick={props.onClickLike} />
+            <info.LikeBoxText>
+              {props.data?.fetchBoard.likeCount ?? "0"}
+            </info.LikeBoxText>
+          </info.LikeBox>
+          <info.LikeBox>
+            <info.DisLike rev={""} onClick={props.onClickDisLike} />
+            <info.LikeBoxText>
+              {props.data?.fetchBoard.dislikeCount ?? "0"}
+            </info.LikeBoxText>
+          </info.LikeBox>
+        </info.LikeBoxs>
       </info.Wrapper>
       <info.BtnWrapper>
         <info.Btn onClick={props.onClickList}>목록으로</info.Btn>
