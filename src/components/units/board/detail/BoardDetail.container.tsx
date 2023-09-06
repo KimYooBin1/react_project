@@ -66,10 +66,10 @@ export default function BoardDetail(): JSX.Element {
     IMutationDislikeBoardArgs
   >(DISLIKE_BOARD);
 
-  const onClickLike = () => {
+  const onClickLike = (): void => {
     // console.log("click like button");
     if (typeof router.query.boardId !== "string") return;
-    likeBoard({
+    void likeBoard({
       variables: { boardId: router.query.boardId },
       refetchQueries: [
         {
@@ -81,10 +81,10 @@ export default function BoardDetail(): JSX.Element {
       ],
     });
   };
-  const onClickDisLike = () => {
+  const onClickDisLike = (): void => {
     // console.log("click dislike button");
     if (typeof router.query.boardId !== "string") return;
-    dislikeBoard({
+    void dislikeBoard({
       variables: { boardId: router.query.boardId },
       refetchQueries: [
         {
