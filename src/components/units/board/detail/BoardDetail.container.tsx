@@ -29,7 +29,6 @@ export default function BoardDetail(): JSX.Element {
       },
     }
   );
-  console.log(data);
   const [deleteBoard] = useMutation<
     Pick<IMutation, "deleteBoard">,
     IMutationDeleteBoardArgs

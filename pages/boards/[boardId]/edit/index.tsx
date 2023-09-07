@@ -13,6 +13,7 @@ const FETCH_NODE = gql`
       title
       contents
       youtubeUrl
+      images
       boardAddress {
         zipcode
         address
@@ -33,5 +34,6 @@ export default function BoardDetailPage(): JSX.Element {
       },
     }
   );
+  console.log(data);
   return <BoardDetail isEdit={true} data={data} />;
 }

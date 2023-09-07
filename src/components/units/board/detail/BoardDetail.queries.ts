@@ -10,6 +10,7 @@ export const fetchBoard = gql`
       createdAt
       likeCount
       dislikeCount
+      images
       boardAddress {
         address
         addressDetail

@@ -51,6 +51,7 @@ export const Contents = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: "hidden";
 `;
 
 export const Title = styled.h1`
@@ -61,6 +62,8 @@ export const Title = styled.h1`
 
 export const ContentImg = styled.img`
   margin-bottom: 50px;
+  max-width: 100%;
+  object-fit: none;
 `;
 
 export const Content = styled.div`

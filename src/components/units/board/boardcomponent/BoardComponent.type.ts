@@ -15,6 +15,7 @@ export interface IBoardComponentUI {
   onToggleModal: () => void;
   handleComplete: (data: Address) => void;
   onClickAddress: () => void;
+  onChangeFileUrl: (url: string, index: number) => void;
   err_add: string;
   err_content: string;
   err_link: string;
@@ -26,6 +27,7 @@ export interface IBoardComponentUI {
   zoneCode: string;
   address: string;
   data?: Pick<IQuery, "fetchBoard">;
+  images: string[];
 }
 
 export interface IBoardComponent {

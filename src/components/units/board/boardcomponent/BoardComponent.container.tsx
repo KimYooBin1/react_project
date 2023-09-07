@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ChangeEvent } from "react";
 import BoardWriteUI from "./BoardComponent.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardComponent.queries";
@@ -36,10 +36,18 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
   const [errAdd, setErrAdd] = useState("");
   const [youtubeUrl, setLink] = useState("");
   const [errLink, setErrLink] = useState("");
+  const [images, setImages] = useState(["", "", ""]);
   const [isOpen, setIsOpen] = useState(false);
+
   const onToggleModal = (): void => {
     setIsOpen((prev) => !prev);
   };
+
+  console.log(props.data);
+  useEffect(() => {
+    const images = props.data?.fetchBoard.images;
+    if (images !== undefined && images !== null) setImages([...images]);
+  }, [props.data]);
 
   function onChangeName(event: ChangeEvent<HTMLInputElement>): void {
     setName(event.target.value);
@@ -148,6 +156,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
             title,
             contents: content,
             youtubeUrl,
+            images: [...images],
             boardAddress: {
               zipcode: zoneCode,
               address,
@@ -165,11 +174,15 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
     }
   };
   const onClickEdit = async (): Promise<void> => {
+    const currentFile = JSON.stringify(images);
+    const defaultFile = JSON.stringify(props.data?.fetchBoard.images);
+    const isChangedFile = currentFile !== defaultFile;
     if (
       title === "" &&
       content === "" &&
       addressDetail === "" &&
-      youtubeUrl === ""
+      youtubeUrl === "" &&
+      !isChangedFile
     ) {
       errorChange();
       return;
@@ -204,6 +217,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
         updateInput.boardAddress.addressDetail = addressDetail;
       }
     }
+    if (isChangedFile) updateInput.images = images;
     try {
       const result = await updateBoard({
         variables: {
@@ -222,6 +236,13 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
       Error();
     }
   };
+
+  const onChangeFileUrl = (url: string, index: number): void => {
+    const NewArr = [...images];
+    NewArr[index] = url;
+    setImages(NewArr);
+  };
+
   return (
     <BoardWriteUI
       onChangeName={onChangeName}
@@ -237,6 +258,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
       onToggleModal={onToggleModal}
       handleComplete={handleComplete}
       onClickAddress={onClickAddress}
+      onChangeFileUrl={onChangeFileUrl}
       err_add={errAdd}
       err_content={errContent}
       err_link={errLink}
@@ -248,6 +270,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
       data={props.data}
       zoneCode={zoneCode}
       address={address}
+      images={images}
     />
   );
 }

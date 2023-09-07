@@ -1,3 +1,4 @@
+import UpLoadBtnItem from "../../../commons/uploads/01/Upload01.container";
 import * as info from "./BoardComponent.styles";
 import type { IBoardComponentUI } from "./BoardComponent.type";
 export default function BoardWriteUI(props: IBoardComponentUI): JSX.Element {
@@ -100,15 +101,16 @@ export default function BoardWriteUI(props: IBoardComponentUI): JSX.Element {
         </info.Box>
         <info.Box>
           <info.Title>사진 첨부</info.Title>
-          <info.Btn2>
-            +<br></br>upload
-          </info.Btn2>
-          <info.Btn2>
-            +<br></br>upload
-          </info.Btn2>
-          <info.Btn2>
-            +<br></br>upload
-          </info.Btn2>
+          <info.ImageBox>
+            {props.images.map((el, index) => (
+              <UpLoadBtnItem
+                key={index}
+                onChangeFileUrl={props.onChangeFileUrl}
+                index={index}
+                url={el}
+              />
+            ))}
+          </info.ImageBox>
         </info.Box>
         <info.Box>
           <info.Title>메인 설정</info.Title>

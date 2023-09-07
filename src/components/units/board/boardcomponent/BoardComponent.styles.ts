@@ -38,6 +38,12 @@ export const Title = styled.div`
   margin-bottom: 15px;
 `;
 
+export const ImageBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 export const TextBox = styled.input`
   width: 100%;
   height: 52px;
