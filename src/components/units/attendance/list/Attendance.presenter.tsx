@@ -1,5 +1,6 @@
 import * as info from "./Attendance.styles";
 import type { IAttendancePage } from "./Attendance.type";
+import { EditOutlined } from "@ant-design/icons";
 export default function AttendanceUI(props: IAttendancePage): JSX.Element {
   return (
     <info.Body>
@@ -11,7 +12,7 @@ export default function AttendanceUI(props: IAttendancePage): JSX.Element {
           <info.HeaderWriter>작성자</info.HeaderWriter>
         </info.Post>
         {props.dataBoards.map((el: any, index: number) => (
-          <info.PostList key={el?._id} id={el?._id}>
+          <info.PostList key={el._id}>
             <info.Num>{index + 1}</info.Num>
             <info.Title>{el?.title}</info.Title>{" "}
             <info.Content>{el?.contents}</info.Content>
@@ -20,7 +21,10 @@ export default function AttendanceUI(props: IAttendancePage): JSX.Element {
         ))}
       </info.Wrapper>
       <info.BtnWrapper>
-        <info.RegBtn onClick={props.onClickSubmit}>출책 남기기</info.RegBtn>
+        <info.RegBtn onClick={props.onClickSubmit}>
+          <EditOutlined rev={""} style={{ marginRight: "20px" }} />
+          출책하기
+        </info.RegBtn>
       </info.BtnWrapper>
     </info.Body>
   );
