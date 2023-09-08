@@ -5,7 +5,7 @@ export const Body = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  margin-top: 30px;
 `;
 
 export const Wrapper = styled.div`

@@ -10,19 +10,29 @@ import {
   fetchBoard,
 } from "../../../src/components/units/board/list/List.queries";
 import Pagination from "../../../src/components/commons/pagination/index.container";
+import Search from "../../../src/components/commons/search/search.container";
+import { useState } from "react";
 
 export default function NewBoard(): JSX.Element {
-  const { data: dataBoardsCount } = useQuery<
+  const { data: dataBoardsCount, refetch: refetchBoardsCount } = useQuery<
     Pick<IQuery, "fetchBoardsCount">,
     IQueryFetchBoardsCountArgs
   >(FETCH_BOARD_COUNTS);
+
   const { data, refetch } = useQuery<
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
   >(fetchBoard);
+
+  const [keyword, SetKeyword] = useState("");
   return (
     <>
-      <ListPage data={data} />
+      <Search
+        SetKeyword={SetKeyword}
+        refetch={refetch}
+        refetchBoardsCount={refetchBoardsCount}
+      />
+      <ListPage data={data} keyword={keyword} />
       <Pagination refetch={refetch} dataBoardsCount={dataBoardsCount} />
     </>
   );

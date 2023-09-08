@@ -1,6 +1,7 @@
 import * as info from "./List.styles";
 import { getDate } from "../../../../commons/libraries/utils";
 import type { IListPageUI } from "./List.type";
+import { v4 as uuid4 } from "uuid";
 export default function ListUI(props: IListPageUI): JSX.Element {
   return (
     <info.Body>
@@ -12,9 +13,23 @@ export default function ListUI(props: IListPageUI): JSX.Element {
           <info.HeaderDate>날짜</info.HeaderDate>
         </info.Post>
         {props.data?.fetchBoards.map((el: any, index: number) => (
-          <info.PostList key={el?._id} id={el?._id} onClick={props.onClickList}>
+          <info.PostList key={el._id} id={el._id} onClick={props.onClickList}>
             <info.Num>{index + 1}</info.Num>
-            <info.Title>{el?.title}</info.Title>{" "}
+            <info.Title>
+              {el.title
+                .replaceAll(props.keyword, `!@#${props.keyword}!@#`)
+                .split("!@#")
+                .map((el1: any) => (
+                  <span
+                    key={uuid4()}
+                    style={{
+                      color: el1 === props.keyword ? "orange" : "black",
+                    }}
+                  >
+                    {el1}
+                  </span>
+                ))}
+            </info.Title>{" "}
             <info.Writer>{el?.writer}</info.Writer>{" "}
             <info.Date>{getDate(el?.createdAt)}</info.Date>
           </info.PostList>
