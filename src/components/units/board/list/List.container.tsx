@@ -10,7 +10,6 @@ export default function ListPage(props: IListPage): JSX.Element {
   const onClickBtn = (): void => {
     void router.push(`/boards/new`);
   };
-  console.log(props.keyword);
   return (
     <ListUI
       data={props.data}
