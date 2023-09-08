@@ -73,6 +73,7 @@ export default function BoardCommentWriter(
     setWriter("");
     setContents("");
     setPassword("");
+    setRating(0);
   };
   const onClickClose = (): void => {
     props.setIsEdit?.(false);
@@ -116,6 +117,7 @@ export default function BoardCommentWriter(
       writer={writer}
       password={password}
       contents={contents}
+      rating={rating}
       length={length}
       isEdit={props.isEdit}
       el={props.el}

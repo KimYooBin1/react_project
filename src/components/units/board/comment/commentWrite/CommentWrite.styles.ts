@@ -84,4 +84,17 @@ export const StarInput = styled(Rate)`
 export const CloseCommentEditBtn = styled.button`
   cursor: pointer;
   margin-left: 640px;
+  border: none;
+  text-align: center;
+  background-color: gray;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+
+  transition: all 0.5s;
+
+  :hover {
+    background-color: orange;
+    color: black;
+  }
 `;

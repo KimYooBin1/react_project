@@ -26,7 +26,11 @@ export default function BoardCommentWriteUI(
           onChange={props.onChangePassword}
           value={props.password}
         />
-        <info.StarInput allowHalf defaultValue={0} onChange={props.setRating} />
+        <info.StarInput
+          allowHalf
+          value={props.rating !== 0 ? props.rating : props.el?.rating ?? 0}
+          onChange={props.setRating}
+        />
 
         {props.isEdit === true && (
           <info.CloseCommentEditBtn onClick={props.onClickClose}>

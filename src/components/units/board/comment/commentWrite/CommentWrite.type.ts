@@ -12,6 +12,7 @@ export interface IBoardCommentWriterUI {
   writer: string;
   password: string;
   contents: string;
+  rating: number;
   length: string;
   isEdit?: boolean;
   el?: IBoardComment;
