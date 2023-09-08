@@ -36,11 +36,7 @@ export default function BoardDetailUI(props: IBoardDetailUi): JSX.Element {
               .map((el, index) => (
                 <info.ContentImg
                   key={index}
-                  src={
-                    el !== ""
-                      ? `https://storage.googleapis.com/${el}`
-                      : `/img/image.png`
-                  }
+                  src={`https://storage.googleapis.com/${el}`}
                 ></info.ContentImg>
               ))}
           </div>
