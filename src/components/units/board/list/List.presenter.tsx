@@ -20,16 +20,16 @@ export default function ListUI(props: IListPageUI): JSX.Element {
                 .replaceAll(props.keyword, `!@#${props.keyword}!@#`)
                 .split("!@#")
                 .map((el1: any) => (
-                  <span
+                  <info.TitleWord
                     key={uuid4()}
                     style={{
-                      color: el1 === props.keyword ? "orange" : "black",
+                      color: el1 === props.keyword ? "orange" : "",
                     }}
                   >
                     {el1}
-                  </span>
+                  </info.TitleWord>
                 ))}
-            </info.Title>{" "}
+            </info.Title>
             <info.Writer>{el?.writer}</info.Writer>{" "}
             <info.Date>{getDate(el?.createdAt)}</info.Date>
           </info.PostList>

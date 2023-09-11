@@ -12,6 +12,7 @@ import {
 import Pagination from "../../../src/components/commons/pagination/index.container";
 import Search from "../../../src/components/commons/search/search.container";
 import { useState } from "react";
+import BestBoard from "../../../src/components/commons/bestBoard/bestBoard.container";
 
 export default function NewBoard(): JSX.Element {
   const { data: dataBoardsCount, refetch: refetchBoardsCount } = useQuery<
@@ -27,6 +28,7 @@ export default function NewBoard(): JSX.Element {
   const [keyword, SetKeyword] = useState("");
   return (
     <>
+      <BestBoard />
       <Search
         SetKeyword={SetKeyword}
         refetch={refetch}

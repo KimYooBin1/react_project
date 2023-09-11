@@ -40,7 +40,7 @@ export const PostList = styled.div`
   cursor: pointer;
 
   &:hover span {
-    color: red;
+    color: orange;
     font-weight: 700;
     font-size: 18px;
   }
@@ -52,6 +52,7 @@ export const Num = styled.span`
   font-size: 16px;
   font-weight: 400;
   color: #4f4f4f;
+  transition: all 0.4s;
 `;
 export const HeaderNum = styled.span`
   width: 10%;
@@ -60,13 +61,17 @@ export const HeaderNum = styled.span`
   font-weight: 700;
 `;
 
-export const Title = styled.span`
+export const Title = styled.div`
   width: 45%;
   text-align: center;
   font-size: 16px;
   font-weight: 400;
   color: #4f4f4f;
 `;
+export const TitleWord = styled.span`
+  transition: all 0.4s;
+`;
+
 export const HeaderTitle = styled.span`
   width: 45%;
   text-align: center;
@@ -80,6 +85,7 @@ export const Writer = styled.span`
   font-size: 16px;
   font-weight: 400;
   color: #4f4f4f;
+  transition: all 0.4s;
 `;
 export const HeaderWriter = styled.span`
   width: 20%;
@@ -94,6 +100,7 @@ export const Date = styled.span`
   font-size: 16px;
   font-weight: 400;
   color: #4f4f4f;
+  transition: all 0.4s;
 `;
 export const HeaderDate = styled.span`
   width: 25%;

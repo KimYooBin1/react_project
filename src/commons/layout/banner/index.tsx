@@ -25,7 +25,8 @@ export default function LayoutBanner(): JSX.Element {
         <img src="/img/menuBackground(3).png" style={contentStyle} />
       </div>
       <div>
-        <img src="/img/menuBackground(2).png" style={contentStyle} />
+        <img src="/img/menuBackground.png" style={contentStyle} />
+        {/* <img src="/img/menuBackground(2).png" style={contentStyle} /> */}
       </div>
     </Carousel>
   );
