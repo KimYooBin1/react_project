@@ -1,9 +1,16 @@
 import * as info from "./login.styles";
-export default function LoginPageUI(): JSX.Element {
+import type { ILoginPageUI } from "./login.type";
+export default function LoginPageUI(props: ILoginPageUI): JSX.Element {
   return (
     <info.Body>
       <info.Wrapper>
-        <div>로그인 페이지 입니다</div>
+        <form>
+          <input type="text" onChange={props.onChangeEmail} />
+          <input type="text" onChange={props.onChangePassword} />
+          <button type="button" onClick={props.onClickSubmit}>
+            등록하기
+          </button>
+        </form>
       </info.Wrapper>
     </info.Body>
   );
