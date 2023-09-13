@@ -45,10 +45,10 @@ export default function LayoutHeader(): JSX.Element {
     void router.push("/boards/page");
   };
   const onClickLogin = (): void => {
-    void router.push("/boards/login");
+    void router.push("/login");
   };
   const onClickSign = (): void => {
-    void router.push("/boards/sign");
+    void router.push("/signup");
   };
 
   return (
