@@ -1,5 +1,5 @@
 import type { ChangeEvent } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginPageUI from "./login.presenter";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "./login.queries";
@@ -19,6 +19,27 @@ export default function LoginPage(): JSX.Element {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [isCheck, setIsCheck] = useState(false);
+
+  const [userId, setUserId] = useState("");
+  useEffect(() => {
+    const ID = localStorage.getItem("UserID");
+    if (ID !== undefined && ID !== null) {
+      setUserId(ID);
+      setEmail(ID);
+      console.log(ID);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (email !== "" && password !== "") {
+      setIsSubmit(true);
+    } else {
+      setIsSubmit(false);
+    }
+  }, [email, password]);
+
   const [login] = useMutation<
     Pick<IMutation, "loginUser">,
     IMutationLoginUserArgs
@@ -30,8 +51,11 @@ export default function LoginPage(): JSX.Element {
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event?.currentTarget.value);
   };
-
   const onClickSubmit = async (): Promise<void> => {
+    if (email === "" || password === "") {
+      alert("이메일 또는 비밀번호가 올바르제 않습니다");
+      return;
+    }
     try {
       const result = await login({
         variables: {
@@ -50,17 +74,34 @@ export default function LoginPage(): JSX.Element {
       setAccessToken(accessToken);
       void router.push("/boards/page");
       success("로그인");
+      if (isCheck) {
+        localStorage.setItem("UserID", email);
+      }
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
       }
     }
   };
+
+  const onClickSignup = (): void => {
+    void router.push("/signup");
+  };
+
+  const onChangeCheckBox = (event: ChangeEvent<HTMLInputElement>): void => {
+    const checked = event.currentTarget.checked;
+    setIsCheck(checked);
+  };
+
   return (
     <LoginPageUI
+      isSubmit={isSubmit}
+      userId={userId}
       onChangeEmail={onChangeEmail}
       onChangePassword={onChangePassword}
       onClickSubmit={onClickSubmit}
+      onClickSignup={onClickSignup}
+      onChangeCheckBox={onChangeCheckBox}
     />
   );
 }

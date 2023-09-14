@@ -3,8 +3,11 @@ import type { ChangeEvent } from "react";
 import LoginPageUI from "./signup.presenter";
 import { useMutation } from "@apollo/client";
 import { SIGN_UP } from "./signup.queries";
+import { useRouter } from "next/router";
 
 export default function SingUpPage(): JSX.Element {
+  const router = useRouter();
+
   const [signup] = useMutation(SIGN_UP);
 
   const [email, setEmail] = useState("");
@@ -37,6 +40,7 @@ export default function SingUpPage(): JSX.Element {
         },
       });
       console.log(result);
+      void router.push("/login");
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
