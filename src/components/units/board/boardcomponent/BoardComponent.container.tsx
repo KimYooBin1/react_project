@@ -18,6 +18,9 @@ import {
   errorChange,
 } from "../../../../commons/libraries/modal";
 import type { Address } from "react-daum-postcode/lib/loadPostcode";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "./BoardComponent.yup";
 
 export default function BoardWrite(props: IBoardComponent): JSX.Element {
   const router = useRouter();
@@ -38,6 +41,11 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
   const [errLink, setErrLink] = useState("");
   const [images, setImages] = useState(["", "", ""]);
   const [isOpen, setIsOpen] = useState(false);
+
+  // const { register, handleSubmit, formState } = useForm({
+  //   resolver: yupResolver(schema),
+  //   mode: "onChange",
+  // });
 
   const onToggleModal = (): void => {
     setIsOpen((prev) => !prev);
@@ -106,14 +114,6 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
     IMutationUpdateBoardArgs
   >(UPDATE_BOARD);
   const onClickSubmit = async (): Promise<void> => {
-    // console.log(name);
-    // console.log(password);
-    // console.log(content);
-    // console.log(add1);
-    // console.log(add2);
-    // console.log(add3);
-    // console.log(yt_link);
-
     if (name === "") {
       setErrName("이름이 올바르지 않습니다");
       // errorEmpty("이름");

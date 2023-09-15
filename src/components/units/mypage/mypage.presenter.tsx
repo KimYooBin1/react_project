@@ -1,15 +1,21 @@
+import { useAuth } from "../../../commons/hook/custom/useAuth";
+import { useQueryFetchBoardsOfMine } from "../../../commons/hook/query/useQueryFetchBoardsOfMine";
+import { useQueryFetchUserLoggedIn } from "../../../commons/hook/query/useQueryFetchUserLoggedIn";
 import * as info from "./mypage.styles";
-import type { IMyPageUI } from "./mypage.type";
 import { v4 as uuidv4 } from "uuid";
-export default function MyPageUI(props: IMyPageUI): JSX.Element {
+export default function MyPage(): JSX.Element {
+  useAuth();
+  const { data: userData } = useQueryFetchUserLoggedIn();
+  const { data } = useQueryFetchBoardsOfMine();
+
   return (
     <info.Body>
       <info.InfoWrapper>
         <info.UserInfoTitle>MYPAGE</info.UserInfoTitle>
         <info.InfoImg src="/img/profile.png" />
-        <info.InfoName>{props.userData?.fetchUserLoggedIn.name}</info.InfoName>
+        <info.InfoName>{userData?.fetchUserLoggedIn.name}</info.InfoName>
         <info.InfoPoint>
-          {props.userData?.fetchUserLoggedIn.userPoint?.amount}
+          {userData?.fetchUserLoggedIn.userPoint?.amount}
         </info.InfoPoint>
         <info.InfoMyShop>내 장터</info.InfoMyShop>
         <info.InfoMyPoint>내 포인트</info.InfoMyPoint>
@@ -23,13 +29,13 @@ export default function MyPageUI(props: IMyPageUI): JSX.Element {
           <info.HeaderDate>날짜</info.HeaderDate>
         </info.Post>
         <info.PostList>
-          {props.data === undefined ? (
+          {data === undefined ? (
             <>
               <div>작성하신 판매글이 없습니다</div>
             </>
           ) : (
             <div>
-              {props.data.fetchBoardsOfMine.map((el) => (
+              {data.fetchBoardsOfMine.map((el) => (
                 <info.Post key={uuidv4()}>
                   <info.Num>번호</info.Num>
                   <info.Title>제목 </info.Title>

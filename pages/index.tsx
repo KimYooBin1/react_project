@@ -1,7 +1,7 @@
-import LayoutHeader from "../src/commons/layout/header";
-import LayoutBanner from "../src/commons/layout/banner";
-import LayoutNavigation from "../src/commons/layout/navigation";
-import LayoutFooter from "../src/commons/layout/footer";
+import LayoutHeader from "../src/commons/layout/header/header.index";
+import LayoutBanner from "../src/commons/layout/banner/banner.index";
+import LayoutNavigation from "../src/commons/layout/navigation/navigation.index";
+import LayoutFooter from "../src/commons/layout/footer/footer.index";
 import styled from "@emotion/styled";
 
 interface ILayout {
