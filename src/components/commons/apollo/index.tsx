@@ -18,7 +18,7 @@ export default function Apollo(props: IApolloProps): JSX.Element {
   const [, setIsLogin] = useRecoilState(isLoginState);
   useEffect(() => {
     const result = localStorage.getItem("accessToken");
-    if (result === undefined || result === null) {
+    if (result === undefined || result === null || result === "") {
       setIsLogin(false);
     } else {
       setIsLogin(true);

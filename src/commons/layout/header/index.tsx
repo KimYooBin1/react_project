@@ -125,7 +125,6 @@ export default function LayoutHeader(): JSX.Element {
     success("로그아웃");
   };
   const { data } = useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER);
-  console.log(data);
 
   const content = (
     <UserBox>

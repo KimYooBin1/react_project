@@ -40,20 +40,22 @@ const MenuBtn = styled.button`
 const NAVIGATION_MENUS = [
   { name: "출석부", page: "/attendance" },
   { name: "라이브게시판", page: "/boards/page" },
-  { name: "라이브상품", page: "/boards/product" },
-  { name: "마이페이지", page: "/boards/mypage" },
+  { name: "라이브상품", page: "/shopboards/page" },
+  { name: "마이페이지", page: "/mypage" },
   { name: "시바시바", page: "/openapi" },
 ];
 export default function LayoutNavigation(): JSX.Element {
   const router = useRouter();
-  const onClick = (event: MouseEvent<HTMLButtonElement>): void => {
-    void router.push(`${event.currentTarget.id}`);
-  };
+  const onClick =
+    (value: string) =>
+    (event: MouseEvent<HTMLButtonElement>): void => {
+      void router.push(`${value}`);
+    };
   return (
     <Wrapper>
       <BtnWrapper>
         {NAVIGATION_MENUS.map((el) => (
-          <MenuBtn key={el.page} id={el.page} onClick={onClick}>
+          <MenuBtn key={el.page} onClick={onClick(el.page)}>
             {el.name}
           </MenuBtn>
         ))}
