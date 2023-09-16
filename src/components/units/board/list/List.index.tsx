@@ -1,8 +1,11 @@
 import * as info from "./List.styles";
 import { getDate } from "../../../../commons/libraries/utils";
-import type { IListPageUI } from "./List.type";
 import { v4 as uuid4 } from "uuid";
-export default function ListUI(props: IListPageUI): JSX.Element {
+import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
+import type { IListPage } from "./List.type";
+import type { IBoard } from "../../../../commons/types/generated/types";
+export default function ListPage(props: IListPage): JSX.Element {
+  const { onClickMoveToPage } = useMoveToPage();
   return (
     <info.Body>
       <info.Wrapper>
@@ -12,8 +15,12 @@ export default function ListUI(props: IListPageUI): JSX.Element {
           <info.HeaderWriter>작성자</info.HeaderWriter>
           <info.HeaderDate>날짜</info.HeaderDate>
         </info.Post>
-        {props.data?.fetchBoards.map((el: any, index: number) => (
-          <info.PostList key={el._id} id={el._id} onClick={props.onClickList}>
+        {props.data?.fetchBoards.map((el: IBoard, index: number) => (
+          <info.PostList
+            key={el._id}
+            id={el._id}
+            onClick={onClickMoveToPage(`/boards/${el._id}`)}
+          >
             <info.Num>{index + 1}</info.Num>
             <info.Title>
               {el.title
@@ -36,7 +43,9 @@ export default function ListUI(props: IListPageUI): JSX.Element {
         ))}
       </info.Wrapper>
       <info.BtnWrapper>
-        <info.RegBtn onClick={props.onClickBtn}>게시물 등록하기</info.RegBtn>
+        <info.RegBtn onClick={onClickMoveToPage("/boards/new")}>
+          게시물 등록하기
+        </info.RegBtn>
       </info.BtnWrapper>
     </info.Body>
   );

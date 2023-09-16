@@ -1,21 +1,17 @@
-import type { ChangeEvent, Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
-import type dayjs from "dayjs";
-import type { Dayjs } from "dayjs";
-import type { EventValue, PresetDate } from "rc-picker/lib/interface";
+import type {
+  IQuery,
+  IQueryFetchBoardsArgs,
+  IQueryFetchBoardsCountArgs,
+} from "../../../commons/types/generated/types";
+import type { ApolloQueryResult } from "@apollo/client";
 export interface ISearch {
   SetKeyword: Dispatch<SetStateAction<string>>;
-  refetchBoardsCount: any;
-  refetch: any;
-}
-
-export interface ISearchUI {
-  onChangeInput: (event: ChangeEvent<HTMLInputElement>) => void;
-  rangePresets:
-    | PresetDate<[EventValue<dayjs.Dayjs>, EventValue<dayjs.Dayjs>]>[]
-    | undefined;
-  onRangeChange: (
-    dates: null | (Dayjs | null)[],
-    dateStrings: string[]
-  ) => void;
+  refetchBoardsCount: (
+    variables?: Partial<IQueryFetchBoardsCountArgs> | undefined
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoardsCount">>>;
+  refetch: (
+    variables?: Partial<IQueryFetchBoardsArgs> | undefined
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
 }

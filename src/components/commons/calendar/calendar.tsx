@@ -1,20 +1,32 @@
-import SearchUI from "./search.presenter";
-import _ from "lodash";
-import type { ISearch } from "./search.type";
-import type { ChangeEvent } from "react";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
-import type { TimeRangePickerProps } from "antd";
-export default function Search(props: ISearch): JSX.Element {
-  const getDebounce = _.debounce((value) => {
-    props.SetKeyword(value);
-    props.refetch({ page: 1, search: value });
-    props.refetchBoardsCount({ search: value });
-  }, 500);
-  const onChangeInput = (event: ChangeEvent<HTMLInputElement>): void => {
-    getDebounce(event.currentTarget.value);
-  };
+import { Space, type TimeRangePickerProps } from "antd";
+import styled from "@emotion/styled";
+import { DatePicker } from "antd";
+import type {
+  IQuery,
+  IQueryFetchBoardsArgs,
+  IQueryFetchBoardsCountArgs,
+} from "../../../commons/types/generated/types";
+import type { ApolloQueryResult } from "@apollo/client";
 
+const { RangePicker } = DatePicker;
+
+export const SearchDate = styled(RangePicker)`
+  margin-left: 50px;
+  height: 50px;
+`;
+
+interface ICalendar {
+  refetchBoardsCount: (
+    variables?: Partial<IQueryFetchBoardsCountArgs> | undefined
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoardsCount">>>;
+  refetch: (
+    variables?: Partial<IQueryFetchBoardsArgs> | undefined
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
+}
+
+export const Calendar = (props: ICalendar) => {
   const onRangeChange = (
     dates: null | (Dayjs | null)[],
     dateStrings: string[]
@@ -26,23 +38,23 @@ export default function Search(props: ISearch): JSX.Element {
       // console.log(new Date(dateStrings[1]));
       const endDate = new Date(dateStrings[1]);
       const startDate = new Date(dateStrings[0]);
-      props.refetch({
+      void props.refetch({
         page: 1,
         endDate,
         startDate,
       });
-      props.refetchBoardsCount({
+      void props.refetchBoardsCount({
         endDate,
         startDate,
       });
     } else {
       console.log("Clear");
-      props.refetch({
+      void props.refetch({
         page: 1,
         endDate: undefined,
         startDate: undefined,
       });
-      props.refetchBoardsCount({
+      void props.refetchBoardsCount({
         endDate: undefined,
         startDate: undefined,
       });
@@ -57,10 +69,10 @@ export default function Search(props: ISearch): JSX.Element {
   ];
 
   return (
-    <SearchUI
-      onChangeInput={onChangeInput}
-      rangePresets={rangePresets}
-      onRangeChange={onRangeChange}
-    />
+    <>
+      <Space direction="vertical" size={12}>
+        <SearchDate presets={rangePresets} onChange={onRangeChange} />
+      </Space>
+    </>
   );
-}
+};
