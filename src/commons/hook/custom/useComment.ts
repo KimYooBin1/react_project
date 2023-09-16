@@ -50,6 +50,7 @@ export const useComment = (arg: IUseCommentArg) => {
       ],
     });
     success("댓글");
+    setRating(0);
     arg.reset();
   };
 
@@ -91,5 +92,6 @@ export const useComment = (arg: IUseCommentArg) => {
     onClickUpdateComment,
     onClickClose,
     setRating,
+    rating,
   };
 };

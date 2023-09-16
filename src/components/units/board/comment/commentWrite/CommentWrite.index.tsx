@@ -11,17 +11,21 @@ export default function BoardCommentWrite(
       writer: props.isEdit ? props.el?.writer : "",
       contents: props.isEdit ? props.el?.contents : "",
       password: "",
-      rating: props.isEdit ? props.el?.rating : 0,
     },
   });
   const { id: boardId } = useIdChecker("boardId");
-  const { onClickSubmit, onClickUpdateComment, onClickClose, setRating } =
-    useComment({
-      boardId,
-      boardCommentId: props.el?._id,
-      setIsEdit: props.setIsEdit,
-      reset,
-    });
+  const {
+    onClickSubmit,
+    onClickUpdateComment,
+    onClickClose,
+    setRating,
+    rating,
+  } = useComment({
+    boardId,
+    boardCommentId: props.el?._id,
+    setIsEdit: props.setIsEdit,
+    reset,
+  });
 
   return (
     <info.WriteWrapper>
@@ -47,7 +51,7 @@ export default function BoardCommentWrite(
         <info.StarInput
           allowHalf
           onChange={setRating}
-          defaultValue={props.el?.rating}
+          value={rating !== 0 ? rating : props.el?.rating ?? 0}
         />
 
         {props.isEdit && (
