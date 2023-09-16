@@ -16,6 +16,7 @@ export default function LoginPage(): JSX.Element {
           : "",
       password: "",
     },
+    mode: "onChange",
   });
   const { onChangeCheckBox, onClickSubmit } = useLogin();
 
@@ -38,11 +39,18 @@ export default function LoginPage(): JSX.Element {
               placeholder="Email"
               {...register("email")}
             />
+            <info.ErrorMessage>
+              {formState.errors.email?.message}
+            </info.ErrorMessage>
             <info.InputBox
               type="password"
               {...register("password")}
               placeholder="password"
+              maxLength={16}
             />
+            <info.ErrorMessage>
+              {formState.errors.password?.message}
+            </info.ErrorMessage>
           </info.InputBoxs>
           <info.SaveInfo>
             <info.SaveInfoCheck type="checkbox" onChange={onChangeCheckBox} />

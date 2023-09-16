@@ -35,7 +35,6 @@ export const TitleBox = styled.div`
 
 export const Title = styled.h3`
   font-size: 28px;
-  margin-bottom: 10px;
 `;
 
 export const SignUpSpan = styled.span`
@@ -51,7 +50,7 @@ export const InputBoxs = styled.div`
 export const InputBox = styled.input`
   width: 300px;
   height: 50px;
-  margin-bottom: 20px;
+  margin-top: 20px;
   padding: 0px 20px;
   font-size: 18px;
 `;
@@ -62,7 +61,7 @@ export const SaveInfo = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 export const SaveInfoCheck = styled.input`
@@ -78,4 +77,9 @@ export const SubmitBtn = styled.button`
   color: white;
   border: none;
   border-radius: 5px;
+  margin-top: 50px;
+`;
+
+export const ErrorMessage = styled.div`
+  color: red;
 `;

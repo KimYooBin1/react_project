@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import type { ISignUpSubmitBtn } from "./signup.type";
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,7 +35,6 @@ export const TitleBox = styled.div`
 
 export const Title = styled.h3`
   font-size: 28px;
-  margin-bottom: 10px;
 `;
 
 export const SignUpSpan = styled.span`
@@ -50,7 +50,7 @@ export const InputBoxs = styled.div`
 export const InputBox = styled.input`
   width: 300px;
   height: 50px;
-  margin-bottom: 20px;
+  margin-top: 20px;
   padding: 0px 20px;
   font-size: 18px;
 `;
@@ -71,9 +71,15 @@ export const SaveInfoCheck = styled.input`
 export const SubmitBtn = styled.button`
   width: 300px;
   height: 50px;
-  background-color: orange;
+  background-color: ${(props: ISignUpSubmitBtn) =>
+    props.isSubmit ? "orange" : "gray"};
   font-size: 20px;
   color: white;
   border: none;
   border-radius: 5px;
+  margin-top: 50px;
+`;
+
+export const ErrorMessage = styled.div`
+  color: red;
 `;
