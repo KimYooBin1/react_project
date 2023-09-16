@@ -1,11 +1,31 @@
-import type { IBoardCommentWriterUI } from "./CommentWrite.type";
+import type { IBoardCommentWriter } from "./CommentWrite.type";
 import * as info from "./CommentWrite.styles";
-export default function BoardCommentWriteUI(
-  props: IBoardCommentWriterUI
+import { useForm } from "react-hook-form";
+import { useComment } from "../../../../../commons/hook/custom/useComment";
+import { useIdChecker } from "../../../../../commons/hook/custom/useIdChecker";
+export default function BoardCommentWrite(
+  props: IBoardCommentWriter
 ): JSX.Element {
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      writer: props.isEdit ? props.el?.writer : "",
+      contents: props.isEdit ? props.el?.contents : "",
+      password: "",
+      rating: props.isEdit ? props.el?.rating : 0,
+    },
+  });
+  const { id: boardId } = useIdChecker("boardId");
+  const { onClickSubmit, onClickUpdateComment, onClickClose, setRating } =
+    useComment({
+      boardId,
+      boardCommentId: props.el?._id,
+      setIsEdit: props.setIsEdit,
+      reset,
+    });
+
   return (
     <info.WriteWrapper>
-      {props.isEdit === false && (
+      {!props.isEdit && (
         <info.WriteTitle>
           <info.WriteImg src="/img/title_img.png" />
           <info.WriteSpan>댓글</info.WriteSpan>
@@ -16,24 +36,22 @@ export default function BoardCommentWriteUI(
         <info.WriteInfoInput
           type="text"
           placeholder="작성자"
-          onChange={props.onChangeWriter}
+          {...register("writer")}
           readOnly={props.isEdit}
-          value={props.writer !== "" ? props.writer : props.el?.writer ?? ""}
         />
         <info.WriteInfoInput
           type="password"
           placeholder="비밀번호"
-          onChange={props.onChangePassword}
-          value={props.password}
+          {...register("password")}
         />
         <info.StarInput
           allowHalf
-          value={props.rating !== 0 ? props.rating : props.el?.rating ?? 0}
-          onChange={props.setRating}
+          onChange={setRating}
+          defaultValue={props.el?.rating}
         />
 
-        {props.isEdit === true && (
-          <info.CloseCommentEditBtn onClick={props.onClickClose}>
+        {props.isEdit && (
+          <info.CloseCommentEditBtn onClick={onClickClose}>
             x
           </info.CloseCommentEditBtn>
         )}
@@ -44,34 +62,31 @@ export default function BoardCommentWriteUI(
                   명예 훼손, 무단 광고, 불법 정보 유
                   포시 모니터링 후 삭제되 수 있으며,
                   이에 대한 민형사상 책임은 게시자에게 있습니다."
-          onChange={props.onChangeContents}
+          {...register("contents")}
           maxLength={100}
-          value={
-            props.contents !== "" ? props.contents : props.el?.contents ?? ""
-          }
         />
         <info.WriteCommentInfoBox>
           <info.WriteCommentInfoText>
             <span>
-              {props.contents !== "" //댓글 부분 수정 요망
-                ? props.contents.length
+              {props.el?.contents !== "" //댓글 부분 수정 요망
+                ? props.el?.contents.length
                 : props.el?.contents.length ?? 0}
             </span>
             /100
           </info.WriteCommentInfoText>
           <info.WriteCommentInfoBtn
             onClick={
-              props.isEdit === true //댓글 부분 수정 요망
-                ? props.onClickUpdateComment
-                : props.onClickSubmit
+              props.isEdit //댓글 부분 수정 요망
+                ? handleSubmit(onClickUpdateComment)
+                : handleSubmit(onClickSubmit)
             }
             style={
-              props.isEdit === true
+              props.isEdit
                 ? { backgroundColor: "orange", border: "none" }
                 : { backgroundColor: "black" }
             }
           >
-            {props.isEdit === true ? "수정" : "등록"}하기
+            {props.isEdit ? "수정" : "등록"}하기
           </info.WriteCommentInfoBtn>
         </info.WriteCommentInfoBox>
       </info.WriteCommentBox>

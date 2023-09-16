@@ -14,12 +14,12 @@ export interface IBoardCommentWriterUI {
   contents: string;
   rating: number;
   length: string;
-  isEdit?: boolean;
+  isEdit: boolean;
   el?: IBoardComment;
 }
 
 export interface IBoardCommentWriter {
-  isEdit?: boolean;
+  isEdit: boolean;
   setIsEdit?: Dispatch<SetStateAction<boolean>>;
   el?: IBoardComment;
 }

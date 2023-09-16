@@ -9,7 +9,7 @@ import { DELETE_COMMENT, FETCH_COMMENT } from "./Comment.queries";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { errorInput, success } from "../../../../commons/libraries/modal";
-import BoardCommentWriter from "./commentWrite/CommentWrite.container";
+import BoardCommentWriter from "./commentWrite/CommentWrite.index";
 
 export default function BoardCommentItem(props: ICommentItem): JSX.Element {
   const [isEdit, setIsEdit] = useState(false);
