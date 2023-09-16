@@ -10,7 +10,7 @@ export const FETCH_BOARDS_OF_MINE = gql`
 `;
 
 export const useQueryFetchBoardsOfMine = () => {
-  const result =
+  const query =
     useQuery<Pick<IQuery, "fetchBoardsOfMine">>(FETCH_BOARDS_OF_MINE);
-  return result;
+  return query;
 };

@@ -16,7 +16,7 @@ export const FETCH_USER_LOGGED_IN = gql`
 `;
 
 export const useQueryFetchUserLoggedIn = () => {
-  const result =
+  const query =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
-  return result;
+  return query;
 };

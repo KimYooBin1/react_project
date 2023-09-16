@@ -1,6 +1,24 @@
+import { useForm } from "react-hook-form";
 import * as info from "./login.styles";
-import type { ILoginPageUI } from "./login.type";
-export default function LoginPageUI(props: ILoginPageUI): JSX.Element {
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "./login.yup";
+import { useMoveToPage } from "../../../commons/hook/custom/useMoveToPage";
+import { useLogin } from "../../../commons/hook/custom/useLogin";
+
+export default function LoginPage(): JSX.Element {
+  const { onClickMoveToPage } = useMoveToPage();
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email:
+        typeof window !== "undefined"
+          ? localStorage?.getItem("UserID") ?? ""
+          : "",
+      password: "",
+    },
+  });
+  const { onChangeCheckBox, onClickSubmit } = useLogin();
+
   return (
     <info.Body>
       <info.Wrapper>
@@ -9,7 +27,7 @@ export default function LoginPageUI(props: ILoginPageUI): JSX.Element {
             <info.Title>Sign in</info.Title>
             <div>
               or{" "}
-              <info.SignUpSpan onClick={props.onClickSignup}>
+              <info.SignUpSpan onClick={onClickMoveToPage("/signup")}>
                 create an account
               </info.SignUpSpan>
             </div>
@@ -17,28 +35,24 @@ export default function LoginPageUI(props: ILoginPageUI): JSX.Element {
           <info.InputBoxs>
             <info.InputBox
               type="text"
-              onChange={props.onChangeEmail}
               placeholder="Email"
-              defaultValue={props.userId}
+              {...register("email")}
             />
             <info.InputBox
               type="password"
-              onChange={props.onChangePassword}
+              {...register("password")}
               placeholder="password"
             />
           </info.InputBoxs>
           <info.SaveInfo>
-            <info.SaveInfoCheck
-              type="checkbox"
-              onChange={props.onChangeCheckBox}
-            />
+            <info.SaveInfoCheck type="checkbox" onChange={onChangeCheckBox} />
             <span>remember me</span>
           </info.SaveInfo>
           <info.SubmitBtn
             type="button"
-            onClick={props.onClickSubmit}
-            disabled={!props.isSubmit}
-            isSubmit={props.isSubmit}
+            onClick={handleSubmit(onClickSubmit)}
+            disabled={!formState.isValid}
+            isSubmit={formState.isValid}
           >
             sign in
           </info.SubmitBtn>

@@ -18,9 +18,9 @@ import {
   errorChange,
 } from "../../../../commons/libraries/modal";
 import type { Address } from "react-daum-postcode/lib/loadPostcode";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "./BoardComponent.yup";
+// import { useForm } from "react-hook-form";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import { schema } from "./BoardComponent.yup";
 
 export default function BoardWrite(props: IBoardComponent): JSX.Element {
   const router = useRouter();

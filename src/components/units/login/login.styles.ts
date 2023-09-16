@@ -73,7 +73,7 @@ export const SubmitBtn = styled.button`
   width: 300px;
   height: 50px;
   background-color: ${(props: ILoginSubmitBtn) =>
-    props.isSubmit ? "orange" : "lightgray"};
+    props.isSubmit ? "orange" : "gray"};
   font-size: 20px;
   color: white;
   border: none;
