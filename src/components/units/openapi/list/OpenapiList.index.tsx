@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import OpenapiListUI from "./OpenapiList.presenter";
-
+import * as info from "./OpenapiList.styles";
+import axios from "axios";
 export default function OpenapiList(): JSX.Element {
   const [imgsrc, setImgSrc] = useState<string[]>([]);
   const [count, setCount] = useState(0);
@@ -20,5 +19,16 @@ export default function OpenapiList(): JSX.Element {
     };
     void fetchImg();
   }, [count]);
-  return <OpenapiListUI imgsrc={imgsrc} onClickBtn={onClickBtn} />;
+  return (
+    <info.Body>
+      <info.Wrapper>
+        <info.ImgBox>
+          {imgsrc.map((el, index) => (
+            <info.ImgDog src={el} key={el} />
+          ))}
+        </info.ImgBox>
+        <info.Btn onClick={onClickBtn}>다른 시바시바</info.Btn>
+      </info.Wrapper>
+    </info.Body>
+  );
 }

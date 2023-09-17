@@ -5,10 +5,10 @@ import type {
   IQueryFetchBoardsCountArgs,
 } from "../../../src/commons/types/generated/types";
 import { FETCH_BOARD_COUNTS } from "../../../src/components/units/board/list/List.queries";
-import Pagination from "../../../src/components/commons/pagination/index.container";
-import Search from "../../../src/components/commons/search/search.container";
+import Pagination from "../../../src/components/commons/pagination/index.index";
+import Search from "../../../src/components/commons/search/search.index";
 import { useState } from "react";
-import BestBoard from "../../../src/components/commons/bestBoard/bestBoard.container";
+import BestBoard from "../../../src/components/commons/bestBoard/bestBoard.index";
 import { FETCH_USED_ITEMS } from "../../../src/components/units/shopboard/list/List.queries";
 import ShopListPage from "../../../src/components/units/shopboard/list/List.container";
 
