@@ -4,7 +4,7 @@ import { getDate2 } from "../../../../commons/libraries/utils";
 import { useQueryFetchBoard } from "../../../../commons/hook/query/useQueryFetchBoard";
 import { useIdChecker } from "../../../../commons/hook/custom/useIdChecker";
 import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
-import { useBoard } from "../../../../commons/hook/custom/useBoard";
+import { useBoard } from "../../../../commons/hook/custom/useBoardDetail";
 import { useBoardLike } from "../../../../commons/hook/custom/useBoardLike";
 export default function BoardDetail(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();

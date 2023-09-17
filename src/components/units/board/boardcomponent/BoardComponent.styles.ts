@@ -81,8 +81,13 @@ export const TextBox1 = styled.textarea`
   padding: 10px;
 `;
 
+interface IBoardWrite {
+  isValid: boolean;
+}
 export const Btn = styled.button`
-  background-color: #ffd600;
+  /* background-color: #ffd600; */
+  background-color: ${(props: IBoardWrite) =>
+    props.isValid ? "#ffd600" : "lightgray"};
   font-weight: 700;
   width: 180px;
   height: 50px;
