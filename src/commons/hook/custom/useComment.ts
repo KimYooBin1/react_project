@@ -1,22 +1,76 @@
 import { errorEmpty, errorInput, success } from "../../libraries/modal";
 import { useMutationCreateBoardComment } from "../mutation/useMutationCreateBoardComment";
 import { useMutationUpdateBoardComment } from "../mutation/useMutationUpdateBoardComment";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import {
+  useState,
+  type Dispatch,
+  type SetStateAction,
+  type ChangeEvent,
+} from "react";
 import { FETCH_COMMENT } from "../query/useQueryfetchBoardComments";
 import type { IUpdateBoardCommentInput } from "../../types/generated/types";
+import { useMutationDeleteBoardComment } from "../mutation/useMutationDeleteBoardComment";
 
 interface IUseCommentArg {
   boardId: string;
   boardCommentId?: string;
   setIsEdit?: Dispatch<SetStateAction<boolean>>;
-  reset: any;
+  reset?: any;
 }
 
 export const useComment = (arg: IUseCommentArg) => {
   const [createBoardComment] = useMutationCreateBoardComment();
   const [updateBoardComment] = useMutationUpdateBoardComment();
+  const [deleteBoardComment] = useMutationDeleteBoardComment();
 
+  const [password, setPassword] = useState("");
   const [rating, setRating] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClickClose = (): void => {
+    arg.setIsEdit?.(false);
+  };
+
+  const onChangeDeletePw = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const toggleModal = (): void => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const onClickOpenDeleteModal = (): void => {
+    toggleModal();
+  };
+  const onCancel = (): void => {
+    toggleModal();
+  };
+  const onClickDelete = async (): Promise<void> => {
+    try {
+      await deleteBoardComment({
+        variables: {
+          boardCommentId: arg.boardCommentId,
+          password,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_COMMENT,
+            variables: {
+              boardId: arg.boardId,
+            },
+          },
+        ],
+      });
+      toggleModal();
+      success("삭제");
+    } catch (error) {
+      errorInput("비밀번호");
+    }
+  };
+  const onClickEditComment = (): void => {
+    arg.setIsEdit?.(true);
+  };
+
   const onClickSubmit = async (data: any): Promise<void> => {
     if (data.writer === "") {
       errorEmpty("작성자");
@@ -84,14 +138,17 @@ export const useComment = (arg: IUseCommentArg) => {
       errorInput("비밀번호");
     }
   };
-  const onClickClose = (): void => {
-    arg.setIsEdit?.(false);
-  };
   return {
     onClickSubmit,
     onClickUpdateComment,
     onClickClose,
     setRating,
+    onClickOpenDeleteModal,
+    onCancel,
+    onClickDelete,
+    onClickEditComment,
+    onChangeDeletePw,
+    isOpen,
     rating,
   };
 };

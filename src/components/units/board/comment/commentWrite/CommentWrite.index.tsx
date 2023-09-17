@@ -3,6 +3,7 @@ import * as info from "./CommentWrite.styles";
 import { useForm } from "react-hook-form";
 import { useComment } from "../../../../../commons/hook/custom/useComment";
 import { useIdChecker } from "../../../../../commons/hook/custom/useIdChecker";
+import { type ChangeEvent, useState } from "react";
 export default function BoardCommentWrite(
   props: IBoardCommentWriter
 ): JSX.Element {
@@ -14,6 +15,14 @@ export default function BoardCommentWrite(
     },
   });
   const { id: boardId } = useIdChecker("boardId");
+  const [length, setLength] = useState(
+    props.el?.contents !== "" ? props.el?.contents.length : 0
+  );
+  const CheckLength = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const str = event.currentTarget.value;
+    setLength(str.length);
+  };
+
   const {
     onClickSubmit,
     onClickUpdateComment,
@@ -68,14 +77,11 @@ export default function BoardCommentWrite(
                   이에 대한 민형사상 책임은 게시자에게 있습니다."
           {...register("contents")}
           maxLength={100}
+          onChange={CheckLength}
         />
         <info.WriteCommentInfoBox>
           <info.WriteCommentInfoText>
-            <span>
-              {props.el?.contents !== "" //댓글 부분 수정 요망
-                ? props.el?.contents.length
-                : props.el?.contents.length ?? 0}
-            </span>
+            <span>{length}</span>
             /100
           </info.WriteCommentInfoText>
           <info.WriteCommentInfoBtn
