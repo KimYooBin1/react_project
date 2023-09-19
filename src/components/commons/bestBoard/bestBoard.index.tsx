@@ -1,19 +1,19 @@
 import { useMoveToPage } from "../../../commons/hook/custom/useMoveToPage";
-import { useQueryUsedFetchItemsOfTheBest } from "../../../commons/hook/query/useQueryFetchUsedItemsOfTheBest";
+import { useQueryFetchBoardsOfTheBest } from "../../../commons/hook/query/useQueryFetchBoardsOfTheBest";
 import * as info from "./bestBoard.styled";
 // import { v4 as uuidv4 } from "uuid";
 export default function BestBoard(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
 
-  const { data } = useQueryUsedFetchItemsOfTheBest();
+  const { data } = useQueryFetchBoardsOfTheBest();
   return (
     <info.Wrapper>
       <info.Title>💕 인기글</info.Title>
       <info.BestBoardsWrapper>
-        {data?.fetchUseditemsOfTheBest.map((el, index) => (
+        {data?.fetchBoardsOfTheBest.map((el, index) => (
           <info.BestBoardWrapper
             key={el._id}
-            onClick={onClickMoveToPage(`/shopboards/${el._id}`)}
+            onClick={onClickMoveToPage(`/boards/${el._id}`)}
           >
             <info.BestBoardImg
               src={
@@ -25,22 +25,8 @@ export default function BestBoard(): JSX.Element {
               }
             />
             <info.BoardInfoBox>
-              <info.BoardTextInfoBox>
-                <info.BestBoardName>{el.name}</info.BestBoardName>
-                <info.BestBoardPrice>{el.price} 원</info.BestBoardPrice>
-              </info.BoardTextInfoBox>
-              <info.BoardPickCount>
-                <div
-                  style={{
-                    marginBottom: "10px",
-                    color: "orange",
-                    fontSize: "22px",
-                  }}
-                >
-                  ❤
-                </div>
-                {el.pickedCount}
-              </info.BoardPickCount>
+              <info.BestBoardTitle>{el.title}</info.BestBoardTitle>
+              <info.BestBoardWriter>{el.writer}</info.BestBoardWriter>
             </info.BoardInfoBox>
           </info.BestBoardWrapper>
         ))}

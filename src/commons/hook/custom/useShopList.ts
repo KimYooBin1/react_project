@@ -8,7 +8,7 @@ interface IUseShopListArg {
 
 export const useShopList = (arg: IUseShopListArg) => {
   const [length, setLength] = useState(0);
-
+  const [more, setMore] = useState(true);
   const onLoadFunc = (): void => {
     if (arg.data === undefined) return;
 
@@ -18,6 +18,8 @@ export const useShopList = (arg: IUseShopListArg) => {
       },
       updateQuery: (prev: any, { fetchMoreResult }: any) => {
         if (fetchMoreResult?.fetchUseditems === undefined) {
+          setMore(false);
+          console.log(more);
           return { fetchUseditems: [...prev.fetchUseditems] };
         }
         setLength((prev) => prev + 10);
@@ -31,5 +33,5 @@ export const useShopList = (arg: IUseShopListArg) => {
     });
   };
 
-  return { onLoadFunc, length };
+  return { onLoadFunc, length, more };
 };

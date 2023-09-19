@@ -8,7 +8,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useShopList } from "../../../../commons/hook/custom/useShopList";
 export default function ShopList(props: IShopListPage): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
-  const { onLoadFunc, length } = useShopList({
+  const { onLoadFunc, length, more } = useShopList({
     data: props.data,
     fetchMore: props.fetchMore,
   });
@@ -27,7 +27,7 @@ export default function ShopList(props: IShopListPage): JSX.Element {
           dataLength={length}
           next={onLoadFunc}
           loader={<h3>로딩중...</h3>}
-          hasMore={true}
+          hasMore={more}
         >
           {props.data?.fetchUseditems.map((el: IUseditem, index: number) => (
             <info.PostList
