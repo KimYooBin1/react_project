@@ -1,39 +1,18 @@
-import { useQuery } from "@apollo/client";
-import type {
-  IQuery,
-  IQueryFetchBoardsArgs,
-  IQueryFetchBoardsCountArgs,
-} from "../../../src/commons/types/generated/types";
-import { FETCH_BOARD_COUNTS } from "../../../src/components/units/board/list/List.queries";
-import Pagination from "../../../src/components/commons/pagination/index.index";
 import Search from "../../../src/components/commons/search/search.index";
 import { useState } from "react";
 import BestBoard from "../../../src/components/commons/bestBoard/bestBoard.index";
-import { FETCH_USED_ITEMS } from "../../../src/components/units/shopboard/list/List.queries";
-import ShopListPage from "../../../src/components/units/shopboard/list/List.container";
+import ShopListPage from "../../../src/components/units/shopboard/list/List.index";
+import { useQueryFetchUsedItems } from "../../../src/commons/hook/query/useQueryFetchUsedItems";
 
 export default function NewBoard(): JSX.Element {
-  const { data: dataBoardsCount, refetch: refetchBoardsCount } = useQuery<
-    Pick<IQuery, "fetchBoardsCount">,
-    IQueryFetchBoardsCountArgs
-  >(FETCH_BOARD_COUNTS);
-
-  const { data, refetch } = useQuery<
-    Pick<IQuery, "fetchUseditems">,
-    IQueryFetchBoardsArgs
-  >(FETCH_USED_ITEMS);
+  const { data, refetch, fetchMore } = useQueryFetchUsedItems();
 
   const [keyword, SetKeyword] = useState("");
   return (
     <>
       <BestBoard />
-      <Search
-        SetKeyword={SetKeyword}
-        refetch={refetch}
-        refetchBoardsCount={refetchBoardsCount}
-      />
-      <ShopListPage data={data} keyword={keyword} />
-      <Pagination refetch={refetch} dataBoardsCount={dataBoardsCount} />
+      <Search SetKeyword={SetKeyword} refetch={refetch} />
+      <ShopListPage data={data} keyword={keyword} fetchMore={fetchMore} />
     </>
   );
 }

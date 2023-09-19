@@ -46,6 +46,20 @@ export const PostList = styled.div`
   }
 `;
 
+export const ListImg = styled.img`
+  width: 200px;
+  aspect-ratio: 1;
+  margin-left: 50px;
+  object-fit: cover;
+`;
+
+export const HeaderImg = styled.span`
+  width: 200px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 50px;
+`;
 export const Num = styled.span`
   width: 10%;
   text-align: center;

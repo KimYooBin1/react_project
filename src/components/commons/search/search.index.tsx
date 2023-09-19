@@ -8,7 +8,7 @@ export default function Search(props: ISearch): JSX.Element {
   const getDebounce = _.debounce((value) => {
     props.SetKeyword(value);
     void props.refetch({ page: 1, search: value });
-    void props.refetchBoardsCount({ search: value });
+    void props.refetchBoardsCount?.({ search: value });
   }, 500);
   const onChangeInput = (event: ChangeEvent<HTMLInputElement>): void => {
     getDebounce(event.currentTarget.value);
@@ -21,11 +21,14 @@ export default function Search(props: ISearch): JSX.Element {
         placeholder=" 제목을 검색해주세요."
         onChange={onChangeInput}
       />
-
-      <Calendar
-        refetch={props.refetch}
-        refetchBoardsCount={props.refetchBoardsCount}
-      />
+      {typeof props.refetchBoardsCount !== "undefined" ? (
+        <Calendar
+          refetch={props.refetch}
+          refetchBoardsCount={props.refetchBoardsCount}
+        />
+      ) : (
+        <></>
+      )}
     </info.Wrapper>
   );
 }
