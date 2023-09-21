@@ -6,6 +6,7 @@ import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
 import type { IUseditem } from "../../../../commons/types/generated/types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useShopList } from "../../../../commons/hook/custom/useShopList";
+import { replacePrice } from "../../../commons/replacePrice/replacePrice";
 export default function ShopList(props: IShopListPage): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const { onLoadFunc, length, more } = useShopList({
@@ -15,13 +16,6 @@ export default function ShopList(props: IShopListPage): JSX.Element {
   return (
     <info.Body>
       <info.Wrapper>
-        <info.Post>
-          <info.HeaderNum>번호</info.HeaderNum>
-          <info.HeaderImg>사진</info.HeaderImg>
-          <info.HeaderName>제목 </info.HeaderName>
-          <info.HeaderDate>날짜</info.HeaderDate>
-        </info.Post>
-
         <InfiniteScroll
           style={{ width: "1200px" }}
           dataLength={length}
@@ -59,6 +53,7 @@ export default function ShopList(props: IShopListPage): JSX.Element {
                     </info.NameWord>
                   ))}
               </info.Name>
+              <span>{replacePrice(String(el.price)) + " 원"}</span>
               <info.Date>{getDate(el?.createdAt)}</info.Date>
             </info.PostList>
           ))}

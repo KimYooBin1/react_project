@@ -1,5 +1,6 @@
 import { useMoveToPage } from "../../../commons/hook/custom/useMoveToPage";
 import { useQueryUsedFetchItemsOfTheBest } from "../../../commons/hook/query/useQueryFetchUsedItemsOfTheBest";
+import { replacePrice } from "../replacePrice/replacePrice";
 import * as info from "./bestItems.styled";
 // import { v4 as uuidv4 } from "uuid";
 export default function BestBoard(): JSX.Element {
@@ -27,7 +28,9 @@ export default function BestBoard(): JSX.Element {
             <info.BoardInfoBox>
               <info.BoardTextInfoBox>
                 <info.BestBoardName>{el.name}</info.BestBoardName>
-                <info.BestBoardPrice>{el.price} 원</info.BestBoardPrice>
+                <info.BestBoardPrice>
+                  {replacePrice(String(el.price))} 원
+                </info.BestBoardPrice>
               </info.BoardTextInfoBox>
               <info.BoardPickCount>
                 <div
