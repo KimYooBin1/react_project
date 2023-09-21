@@ -15,8 +15,12 @@ export const useUsedItem = (arg: IUsedItemArg) => {
 
   const [deleteUsedItem] = useMutationDeleteUsedItem();
 
-  if (localStorage.getItem("accessToken") === data?.fetchUseditem.seller?._id) {
-    setAuth(true);
+  if (typeof window !== "undefined") {
+    if (
+      localStorage.getItem("accessToken") === data?.fetchUseditem.seller?._id
+    ) {
+      setAuth(true);
+    }
   }
   const onClickDelete = (): void => {
     try {
