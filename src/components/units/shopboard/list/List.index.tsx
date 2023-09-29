@@ -15,6 +15,11 @@ export default function ShopList(props: IShopListPage): JSX.Element {
   });
   return (
     <info.Body>
+      <info.BtnWrapper>
+        <info.RegBtn onClick={onClickMoveToPage("/shopboards/new")}>
+          게시물 등록하기
+        </info.RegBtn>
+      </info.BtnWrapper>
       <info.Wrapper>
         <InfiniteScroll
           style={{ width: "1200px" }}
@@ -59,11 +64,6 @@ export default function ShopList(props: IShopListPage): JSX.Element {
           ))}
         </InfiniteScroll>
       </info.Wrapper>
-      <info.BtnWrapper>
-        <info.RegBtn onClick={onClickMoveToPage("/shopboards/new")}>
-          게시물 등록하기
-        </info.RegBtn>
-      </info.BtnWrapper>
     </info.Body>
   );
 }

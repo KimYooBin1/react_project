@@ -4,9 +4,9 @@ export const success = (type: string): void => {
     content: `${type}(이/가) 되었습니다`,
   });
 };
-export const Error = (): void => {
+export const alertError = (error: string): void => {
   Modal.error({
-    content: `요청에 문제가 있습니다`,
+    content: error,
   });
 };
 export const errorEmpty = (type: string): void => {

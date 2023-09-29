@@ -1,14 +1,17 @@
-import * as info from "./BoardDetail.styles";
+import * as info from "./UsedItemDetail.styles";
 import { Tooltip } from "antd";
 import { getDate2 } from "../../../../commons/libraries/utils";
 import { useIdChecker } from "../../../../commons/hook/custom/useIdChecker";
 import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
-import { useUsedItem } from "../../../../commons/hook/custom/useUsedItem";
+import { useUsedItem } from "../../../../commons/hook/custom/useUsedItemDetail";
 import { KakaoMap } from "../../../commons/kakaoMap/kakaoMap";
 export default function ShopBoardDetail(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const { id: useditemId } = useIdChecker("useditemId");
-  const { onClickDelete, data, auth } = useUsedItem({ useditemId });
+  const { onClickDelete, onClickEdit, data, userData } = useUsedItem({
+    useditemId,
+  });
+  console.log(data);
   const onClickLike = () => {};
 
   return (
@@ -52,8 +55,9 @@ export default function ShopBoardDetail(): JSX.Element {
           ></info.Content>
         </info.Contents>
         <KakaoMap
-          lat={data?.fetchUseditem.useditemAddress?.lat}
-          lng={data?.fetchUseditem.useditemAddress?.lng}
+          lat={data?.fetchUseditem.useditemAddress?.lat ?? 33.450701}
+          lng={data?.fetchUseditem.useditemAddress?.lng ?? 126.570667}
+          ReadOnly={true}
         />
         <info.LikeBoxs>
           <info.LikeBox>
@@ -68,8 +72,12 @@ export default function ShopBoardDetail(): JSX.Element {
         <info.Btn onClick={onClickMoveToPage("/shopboards/page")}>
           목록으로
         </info.Btn>
-        {auth ? (
-          <info.Btn onClick={onClickDelete}>삭제하기</info.Btn>
+        {data?.fetchUseditem.seller?.email ===
+        userData?.fetchUserLoggedIn.email ? (
+          <>
+            <info.Btn onClick={onClickDelete}>삭제하기</info.Btn>
+            <info.Btn onClick={onClickEdit}>수정하기</info.Btn>
+          </>
         ) : (
           <info.Btn>구매하기</info.Btn>
         )}

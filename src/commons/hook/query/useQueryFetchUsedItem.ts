@@ -8,28 +8,35 @@ export const FETCH_USED_ITEM = gql`
   query fetchUseditem($useditemId: ID!) {
     fetchUseditem(useditemId: $useditemId) {
       _id
+      remarks
       name
       contents
       createdAt
       pickedCount
       images
+      price
       useditemAddress {
+        zipcode
         address
         addressDetail
         lat
         lng
       }
+      seller {
+        _id
+        email
+      }
     }
   }
 `;
 
-export const useQueryFetchUsedItem = (boardId: string) => {
+export const useQueryFetchUsedItem = (useditemId: string) => {
   const query = useQuery<
     Pick<IQuery, "fetchUseditem">,
     IQueryFetchUseditemArgs
   >(FETCH_USED_ITEM, {
     variables: {
-      useditemId: boardId,
+      useditemId,
     },
   });
   return query;

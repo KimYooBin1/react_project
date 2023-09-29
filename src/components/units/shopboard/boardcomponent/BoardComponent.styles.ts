@@ -81,8 +81,16 @@ export const TextBox1 = styled.textarea`
   padding: 10px;
 `;
 
+export interface IBtnValid {
+  isValid: boolean;
+}
+
 export const Btn = styled.button`
-  background-color: #ffd600;
+  background-color: ${(props: IBtnValid) =>
+    props.isValid ? "orange" : "ffd600"};
+  font-weight: 700;
+  color: ${(props: IBtnValid) => (props.isValid ? "white" : "")};
+  cursor: ${(props: IBtnValid) => (props.isValid ? "pointer" : "")};
   font-weight: 700;
   width: 180px;
   height: 50px;

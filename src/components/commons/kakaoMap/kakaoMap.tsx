@@ -5,8 +5,9 @@ declare const window: typeof globalThis & {
 };
 
 interface IKakaoMapArg {
-  lat?: any;
-  lng?: any;
+  lat?: number;
+  lng?: number;
+  ReadOnly: boolean;
 }
 
 export const KakaoMap = (props: IKakaoMapArg): JSX.Element => {
@@ -22,8 +23,8 @@ export const KakaoMap = (props: IKakaoMapArg): JSX.Element => {
         const container = document.getElementById("map");
         const options = {
           center: new window.kakao.maps.LatLng(
-            props.lat ?? 0,
-            props.lng ?? 126
+            props.lat ?? 33.450701,
+            props.lng ?? 126.570667
           ),
           level: 3,
         };
@@ -37,22 +38,23 @@ export const KakaoMap = (props: IKakaoMapArg): JSX.Element => {
 
         // 지도에 클릭 이벤트를 등록합니다
         // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-        window.kakao.maps.event.addListener(
-          map,
-          "click",
-          function (mouseEvent: any) {
-            // 클릭한 위도, 경도 정보를 가져옵니다
-            const latlng = mouseEvent.latLng;
+        !props.ReadOnly &&
+          window.kakao.maps.event.addListener(
+            map,
+            "click",
+            function (mouseEvent: any) {
+              // 클릭한 위도, 경도 정보를 가져옵니다
+              const latlng = mouseEvent.latLng;
 
-            // 마커 위치를 클릭한 위치로 옮깁니다
-            marker.setPosition(latlng);
+              // 마커 위치를 클릭한 위치로 옮깁니다
+              marker.setPosition(latlng);
 
-            const message = `위도 : ${String(latlng.getLat())} 경도: ${String(
-              latlng.getLng()
-            )}`;
-            console.log(message);
-          }
-        );
+              const message = `위도 : ${String(latlng.getLat())} 경도: ${String(
+                latlng.getLng()
+              )}`;
+              console.log(message);
+            }
+          );
       });
     };
   });
