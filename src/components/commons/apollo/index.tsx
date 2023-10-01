@@ -14,16 +14,18 @@ interface IApolloProps {
 }
 
 export default function Apollo(props: IApolloProps): JSX.Element {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [accessToken] = useRecoilState(accessTokenState);
   const [, setIsLogin] = useRecoilState(isLoginState);
   useEffect(() => {
-    const result = localStorage.getItem("accessToken");
-    if (result === undefined || result === null || result === "") {
+    if (
+      accessToken === undefined ||
+      accessToken === null ||
+      accessToken === ""
+    ) {
       setIsLogin(false);
     } else {
       setIsLogin(true);
     }
-    setAccessToken(result ?? "");
   }, []);
 
   const uploadLink = createUploadLink({

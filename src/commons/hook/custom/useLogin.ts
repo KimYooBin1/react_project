@@ -36,7 +36,6 @@ export const useLogin = () => {
         return;
       }
       setIsLogin(true);
-      localStorage.setItem("accessToken", accessToken);
       setAccessToken(accessToken);
       void router.push("/boards/page");
       success("로그인");

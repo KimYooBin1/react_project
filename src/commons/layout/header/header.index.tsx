@@ -16,7 +16,6 @@ export default function LayoutHeader(): JSX.Element {
   const onClickLogout = (): void => {
     setIsLogin(false);
     setAccessToken("");
-    localStorage.removeItem("accessToken");
     success("로그아웃");
   };
   const { data } = useQueryFetchUserLoggedIn();
