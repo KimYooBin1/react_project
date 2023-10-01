@@ -1,13 +1,15 @@
-import { useForm } from "react-hook-form";
 import UpLoadBtnItem from "../../../commons/uploads/01/Upload01.container";
 import * as info from "./BoardComponent.styles";
 import type { IBoardComponent } from "./BoardComponent.type";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "./BoardComponent.yup";
 import { useBoardComponent } from "../../../../commons/hook/custom/useBoardComponent";
 import { useQueryFetchBoard } from "../../../../commons/hook/query/useQueryFetchBoard";
 import { useIdChecker } from "../../../../commons/hook/custom/useIdChecker";
 import { v4 as uuidv4 } from "uuid";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+const ReactQuill = dynamic(async () => await import("react-quill"), {
+  ssr: false,
+});
 export default function BoardWrite(props: IBoardComponent): JSX.Element {
   const { id: boardId } = useIdChecker("boardId");
   const { data } = useQueryFetchBoard({ boardId });
@@ -25,12 +27,11 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
     images,
     zipcode,
     address,
+    formState,
+    register,
+    handleSubmit,
+    onChangeContent,
   } = useBoardComponent({ isEdit: props.isEdit, data });
-
-  const { register, handleSubmit, formState } = useForm({
-    resolver: yupResolver(schema),
-    mode: "onChange",
-  });
 
   return (
     <info.Body>
@@ -79,11 +80,15 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
         </info.Box>
         <info.Box>
           <info.Title>내용</info.Title>
-          <info.TextBox1
-            placeholder="내용을 입력해주세요."
-            {...register("contents")}
-            defaultValue={data?.fetchBoard?.contents}
-          ></info.TextBox1>
+
+          {(typeof data !== "undefined" || !props.isEdit) && (
+            <ReactQuill
+              style={{ height: "400px", marginBottom: "50px" }}
+              placeholder="내용을 입력해주세요."
+              onChange={onChangeContent}
+              defaultValue={data?.fetchBoard?.contents}
+            ></ReactQuill>
+          )}
           <info.ErrText>{formState.errors.contents?.message}</info.ErrText>
         </info.Box>
         <info.Box>

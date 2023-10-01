@@ -1,11 +1,18 @@
 import { type ChangeEvent, useEffect, useState } from "react";
 import { useMutationCreateBoard } from "../mutation/useMutationCreateBoard";
 import { useMutationUpdateBoard } from "../mutation/useMutationUpdateBoard";
-import { errorChange, errorInput, success } from "../../libraries/modal";
+import {
+  alertError,
+  errorChange,
+  errorInput,
+  success,
+} from "../../libraries/modal";
 import { useRouter } from "next/router";
 import type { IQuery, IUpdateBoardInput } from "../../types/generated/types";
 import type { Address } from "react-daum-postcode/lib/loadPostcode";
-
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "../../../components/units/board/boardcomponent/BoardComponent.yup";
+import { useForm } from "react-hook-form";
 interface IUseBoardComponent {
   isEdit: boolean;
   data?: Pick<IQuery, "fetchBoard">;
@@ -21,10 +28,27 @@ interface IFetchBoardArgs {
 }
 
 export const useBoardComponent = (arg: IUseBoardComponent) => {
+  const { register, handleSubmit, formState, setValue, trigger } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+  });
+
   const router = useRouter();
+
   useEffect(() => {
     const images = arg.data?.fetchBoard.images;
     if (images !== undefined && images !== null) setImages([...images]);
+    if (arg.isEdit) {
+      console.log(arg.data?.fetchBoard);
+      setValue("contents", arg.data?.fetchBoard.contents ?? "");
+      setValue("writer", arg.data?.fetchBoard.writer ?? "");
+      setValue("title", arg.data?.fetchBoard.title ?? "");
+      setValue(
+        "addressDetail",
+        arg.data?.fetchBoard.boardAddress?.addressDetail ?? ""
+      );
+      setValue("youtubeUrl", arg.data?.fetchBoard.youtubeUrl ?? "");
+    }
   }, [arg.data]);
 
   const [createBoard] = useMutationCreateBoard();
@@ -73,7 +97,7 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
       },
     });
     if (result.data?.createBoard._id === undefined) {
-      Error();
+      alertError("요청이 잘못되었습니다");
       return;
     }
     success("글");
@@ -99,7 +123,7 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
       return;
     }
     if (typeof router.query.boardId !== "string") {
-      Error();
+      alertError("요청이 잘못되었습니다");
       return;
     }
     const updateInput: IUpdateBoardInput = {};
@@ -134,13 +158,15 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
         },
       });
       if (result.data?.updateBoard._id === undefined) {
-        Error();
+        alertError("요청이 잘못되었습니다");
         return;
       }
       success("수정");
       void router.push(`/boards/${result.data?.updateBoard._id}`);
     } catch (error) {
-      Error();
+      if (error instanceof Error) {
+        alertError(error.message);
+      }
     }
   };
 
@@ -148,6 +174,14 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
     const NewArr = [...images];
     NewArr[index] = url;
     setImages(NewArr);
+  };
+
+  const onChangeContent = (value: string) => {
+    if (value === "<p><br></p>") {
+      value = "";
+    }
+    setValue("contents", value);
+    void trigger("contents");
   };
 
   return {
@@ -163,5 +197,10 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
     images,
     zipcode,
     address,
+    register,
+    formState,
+    setValue,
+    handleSubmit,
+    onChangeContent,
   };
 };

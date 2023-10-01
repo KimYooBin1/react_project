@@ -5,11 +5,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../../components/units/shopboard/boardcomponent/UsedItemComponent.yup";
 import { useState, type ChangeEvent, useEffect } from "react";
 import type { Address } from "react-daum-postcode/lib/loadPostcode";
-import type { IUpdateUseditemInput } from "../../types/generated/types";
+import type { IQuery, IUpdateUseditemInput } from "../../types/generated/types";
 import { alertError, errorChange, success } from "../../libraries/modal";
 import { useRouter } from "next/router";
-import { useIdChecker } from "./useIdChecker";
-import { useQueryFetchUsedItem } from "../query/useQueryFetchUsedItem";
 
 interface IFetchUseditemArgs {
   name: string;
@@ -23,14 +21,43 @@ interface IFetchUseditemArgs {
   lng: string;
 }
 
-export const useUseditem = () => {
-  const { id: useditemId } = useIdChecker("useditemId");
-  const { data: usedData } = useQueryFetchUsedItem(useditemId);
+interface IUseditemArgs {
+  isEdit: boolean;
+  data?: Pick<IQuery, "fetchUseditem">;
+  useditemId: string;
+}
 
+export const useUseditem = (arg: IUseditemArgs) => {
   useEffect(() => {
-    const images = usedData?.fetchUseditem.images;
+    const images = arg.data?.fetchUseditem.images;
     if (images !== undefined && images !== null) setImages([...images]);
-  }, [usedData]);
+    if (arg.isEdit) {
+      setValue("name", arg.data?.fetchUseditem.name ?? "");
+      setValue("remarks", arg.data?.fetchUseditem.remarks ?? "");
+      setValue("contents", arg.data?.fetchUseditem.contents ?? "");
+      setValue("price", String(arg.data?.fetchUseditem.price ?? 0));
+      setValue(
+        "address",
+        arg.data?.fetchUseditem.useditemAddress?.address ?? ""
+      );
+      setValue(
+        "addressDetail",
+        arg.data?.fetchUseditem.useditemAddress?.addressDetail ?? ""
+      );
+      setValue(
+        "zipcode",
+        arg.data?.fetchUseditem.useditemAddress?.zipcode ?? ""
+      );
+      setValue(
+        "lat",
+        String(arg.data?.fetchUseditem.useditemAddress?.lat ?? 33.450701)
+      );
+      setValue(
+        "lng",
+        String(arg.data?.fetchUseditem.useditemAddress?.lng ?? 126.570667)
+      );
+    }
+  }, [arg.data]);
 
   const [images, setImages] = useState(["", "", ""]);
   const [isOpen, setIsOpen] = useState(false);
@@ -112,9 +139,13 @@ export const useUseditem = () => {
   };
 
   const onClickEdit = async (data: IFetchUseditemArgs) => {
+    if (!formState.isValid) {
+      errorChange();
+      return;
+    }
     console.log("false");
     const currentFile = JSON.stringify(images);
-    const defaultFile = JSON.stringify(usedData?.fetchUseditem.images);
+    const defaultFile = JSON.stringify(arg.data?.fetchUseditem.images);
     const isChangedFile = currentFile !== defaultFile;
     if (
       data.address === "" &&
@@ -173,19 +204,19 @@ export const useUseditem = () => {
       updateUseditemInput.images = images;
     }
 
-    if (typeof useditemId === "undefined") {
+    if (typeof arg.useditemId === "undefined") {
       alertError("잘못된 요청입니다");
       return;
     }
     try {
       await updateUseditem({
         variables: {
-          useditemId,
+          useditemId: arg.useditemId,
           updateUseditemInput,
         },
       });
       success("상품 수정");
-      void router.push(`/shopboards/${useditemId}`);
+      void router.push(`/shopboards/${arg.useditemId}`);
     } catch (error) {
       if (error instanceof Error) {
         alertError(error.message);
@@ -208,6 +239,5 @@ export const useUseditem = () => {
     onClickEdit,
     handleSubmit,
     images,
-    usedData,
   };
 };

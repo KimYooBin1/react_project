@@ -93,6 +93,8 @@ export const Btn = styled.button`
   height: 50px;
   border: none;
   margin-top: 20px;
+  color: ${(props: IBoardWrite) => (props.isValid ? "white" : "")};
+  cursor: ${(props: IBoardWrite) => (props.isValid ? "pointer" : "")};
 `;
 
 export const Btn1 = styled.button`

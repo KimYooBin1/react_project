@@ -5,13 +5,15 @@ import { useIdChecker } from "../../../../commons/hook/custom/useIdChecker";
 import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
 import { useUsedItem } from "../../../../commons/hook/custom/useUsedItemDetail";
 import { KakaoMap } from "../../../commons/kakaoMap/kakaoMap";
+import { useState } from "react";
 export default function ShopBoardDetail(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const { id: useditemId } = useIdChecker("useditemId");
   const { onClickDelete, onClickEdit, data, userData } = useUsedItem({
     useditemId,
   });
-  console.log(data);
+  const [, setLat] = useState(0);
+  const [, setLng] = useState(0);
   const onClickLike = () => {};
 
   return (
@@ -54,11 +56,14 @@ export default function ShopBoardDetail(): JSX.Element {
             }}
           ></info.Content>
         </info.Contents>
-        <KakaoMap
-          lat={data?.fetchUseditem.useditemAddress?.lat ?? 33.450701}
-          lng={data?.fetchUseditem.useditemAddress?.lng ?? 126.570667}
-          ReadOnly={true}
-        />
+        {typeof data !== "undefined" && (
+          <KakaoMap
+            address={String(data.fetchUseditem.useditemAddress?.address)}
+            ReadOnly={true}
+            setLat={setLat}
+            setLng={setLng}
+          />
+        )}
         <info.LikeBoxs>
           <info.LikeBox>
             <info.Like rev={""} onClick={onClickLike} />

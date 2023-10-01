@@ -87,7 +87,7 @@ export interface IBtnValid {
 
 export const Btn = styled.button`
   background-color: ${(props: IBtnValid) =>
-    props.isValid ? "orange" : "ffd600"};
+    props.isValid ? "#ffd600" : "lightgray"};
   font-weight: 700;
   color: ${(props: IBtnValid) => (props.isValid ? "white" : "")};
   cursor: ${(props: IBtnValid) => (props.isValid ? "pointer" : "")};

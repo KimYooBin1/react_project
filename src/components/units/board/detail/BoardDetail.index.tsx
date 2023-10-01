@@ -49,7 +49,11 @@ export default function BoardDetail(): JSX.Element {
                 ></info.ContentImg>
               ))}
           </div>
-          <info.Content>{data?.fetchBoard?.contents}</info.Content>
+          <info.Content
+            dangerouslySetInnerHTML={{
+              __html: data?.fetchBoard?.contents ?? "",
+            }}
+          ></info.Content>
           {data?.fetchBoard.youtubeUrl !== "" && (
             <info.YouTube
               url={data?.fetchBoard.youtubeUrl ?? ""}
