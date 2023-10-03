@@ -14,6 +14,7 @@ export default function BoardDetail(): JSX.Element {
   const { data } = useQueryFetchBoard({
     boardId,
   });
+  console.log("렌더링 되었습니다");
   return (
     <info.Body>
       <info.Wrapper>

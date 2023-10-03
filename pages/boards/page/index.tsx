@@ -12,7 +12,6 @@ export default function NewBoard(): JSX.Element {
 
   const { data, refetch } = useQueryFetchBoards();
   const [keyword, SetKeyword] = useState("");
-  console.log(dataBoardsCount);
   return (
     <>
       <BestBoard />

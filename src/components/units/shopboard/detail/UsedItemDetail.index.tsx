@@ -6,15 +6,16 @@ import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
 import { useUsedItem } from "../../../../commons/hook/custom/useUsedItemDetail";
 import { KakaoMap } from "../../../commons/kakaoMap/kakaoMap";
 import { useState } from "react";
+import useToggleUseditemPick from "../../../../commons/hook/custom/useToggleUseditemPick";
 export default function ShopBoardDetail(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const { id: useditemId } = useIdChecker("useditemId");
   const { onClickDelete, onClickEdit, data, userData } = useUsedItem({
     useditemId,
   });
+  const { onClickPickBtn } = useToggleUseditemPick({ useditemId });
   const [, setLat] = useState(0);
   const [, setLng] = useState(0);
-  const onClickLike = () => {};
 
   return (
     <info.Body>
@@ -66,7 +67,7 @@ export default function ShopBoardDetail(): JSX.Element {
         )}
         <info.LikeBoxs>
           <info.LikeBox>
-            <info.Like rev={""} onClick={onClickLike} />
+            <info.Like rev={""} onClick={onClickPickBtn} />
             <info.LikeBoxText>
               {data?.fetchUseditem.pickedCount ?? "0"}
             </info.LikeBoxText>

@@ -8,7 +8,6 @@ import UseQueryFetchUseditemsCountISold from "../../src/commons/hook/query/useQu
 export default function MyPageBoard(): JSX.Element {
   const { data, refetch } = useQueryFetchUseditemsISold();
   const { data: dataUsedISoldCount } = UseQueryFetchUseditemsCountISold();
-  console.log(data);
   const [, SetKeyword] = useState("");
   return (
     <>
