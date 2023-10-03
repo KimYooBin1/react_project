@@ -25,6 +25,8 @@ interface IUseditemArgs {
   isEdit: boolean;
   data?: Pick<IQuery, "fetchUseditem">;
   useditemId: string;
+  lat: string;
+  lng: string;
 }
 
 export const useUseditem = (arg: IUseditemArgs) => {
@@ -93,9 +95,14 @@ export const useUseditem = (arg: IUseditemArgs) => {
     console.log(data);
     setValue("zipcode", data.zonecode);
     setValue("address", data.address);
+    setValue("lat", arg.lat);
+    setValue("lng", arg.lng);
+    void trigger("lat");
+    void trigger("lng");
     void trigger("zipcode");
     void trigger("address");
-
+    console.log(formState.errors);
+    console.log(watch("lat"));
     onToggleModal();
   };
 

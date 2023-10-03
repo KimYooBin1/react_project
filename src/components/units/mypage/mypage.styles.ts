@@ -114,19 +114,13 @@ export const Post = styled.div`
 
 export const PostList = styled.div`
   width: 100%;
-  border-bottom: 1px solid gray;
+  /* border-bottom: 1px solid gray; */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0px;
   cursor: pointer;
-
-  &:hover span {
-    color: orange;
-    font-weight: 700;
-    font-size: 18px;
-  }
 `;
 
 export const Num = styled.span`

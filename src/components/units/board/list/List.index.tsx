@@ -4,8 +4,12 @@ import { v4 as uuid4 } from "uuid";
 import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
 import type { IListPage } from "./List.type";
 import type { IBoard } from "../../../../commons/types/generated/types";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../../../commons/stores";
 export default function ListPage(props: IListPage): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
+  const [accessToken] = useRecoilState(accessTokenState);
+  console.log(accessToken);
   return (
     <info.Body>
       <info.Wrapper>

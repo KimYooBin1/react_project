@@ -4,6 +4,7 @@ import type { IQuery } from "../../../commons/types/generated/types";
 export interface IPagination {
   refetch: any;
   dataBoardsCount?: Pick<IQuery, "fetchBoardsCount">;
+  dataUsedISoldCount?: Pick<IQuery, "fetchUseditemsCountISold">;
 }
 
 export interface IPaginationUI {

@@ -1,13 +1,17 @@
 import { useAuth } from "../../../commons/hook/custom/useAuth";
-import { useQueryFetchBoardsOfMine } from "../../../commons/hook/query/useQueryFetchBoardsOfMine";
 import { useQueryFetchUserLoggedIn } from "../../../commons/hook/query/useQueryFetchUserLoggedIn";
 import * as info from "./mypage.styles";
 import { v4 as uuidv4 } from "uuid";
-export default function MyPage(): JSX.Element {
+import MyPageItem from "./mypageItem.index";
+// import Search from "../../commons/search/search.index";
+
+interface IMyPageProps {
+  data: any;
+}
+
+export default function MyPage(props: IMyPageProps): JSX.Element {
   useAuth();
   const { data: userData } = useQueryFetchUserLoggedIn();
-  const { data } = useQueryFetchBoardsOfMine();
-
   return (
     <info.Body>
       <info.InfoWrapper>
@@ -24,24 +28,19 @@ export default function MyPage(): JSX.Element {
       <info.BoardsWrapper>
         <info.Post>
           <info.HeaderNum>번호</info.HeaderNum>
-          <info.HeaderTitle>제목 </info.HeaderTitle>
+          <info.HeaderTitle>상품명 </info.HeaderTitle>
           <info.HeaderPrice>판매가격</info.HeaderPrice>
           <info.HeaderDate>날짜</info.HeaderDate>
         </info.Post>
         <info.PostList>
-          {data === undefined ? (
+          {typeof props.data === "undefined" ? (
             <>
               <div>작성하신 판매글이 없습니다</div>
             </>
           ) : (
-            <div>
-              {data.fetchBoardsOfMine.map((el) => (
-                <info.Post key={uuidv4()}>
-                  <info.Num>번호</info.Num>
-                  <info.Title>제목 </info.Title>
-                  <info.Price>판매가격</info.Price>
-                  <info.Date>날짜</info.Date>
-                </info.Post>
+            <div style={{ width: "100%" }}>
+              {props.data.fetchUseditemsISold.map((el: any, index: number) => (
+                <MyPageItem key={uuidv4()} el={el} index={index} />
               ))}
             </div>
           )}

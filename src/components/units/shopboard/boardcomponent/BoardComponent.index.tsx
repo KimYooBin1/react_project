@@ -22,7 +22,6 @@ export default function ShopBoardWrite(
 
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
-
   const {
     isOpen,
     onToggleModal,
@@ -39,7 +38,14 @@ export default function ShopBoardWrite(
     onClickSubmit,
     handleSubmit,
     images,
-  } = useUseditem({ isEdit: props.isEdit, data: data, useditemId: useditemId });
+  } = useUseditem({
+    isEdit: props.isEdit,
+    data,
+    useditemId,
+    lat: String(lat),
+    lng: String(lng),
+  });
+  console.log(formState.isValid);
   return (
     <info.Body>
       {isOpen && (

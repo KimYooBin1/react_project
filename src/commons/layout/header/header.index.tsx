@@ -49,7 +49,11 @@ export default function LayoutHeader(): JSX.Element {
               trigger="hover"
               style={{ backgroundColor: "blue" }}
             >
-              <img src="/img/profile.png" />
+              <img
+                src="/img/profile.png"
+                style={{ cursor: "pointer" }}
+                onClick={onClickMoveToPage("/mypage")}
+              />
             </Popover>
           </Space>
         ) : (

@@ -1,12 +1,25 @@
 import type { IPagination } from "./index.type";
 import * as S from "./index.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { MouseEvent } from "react";
 export default function Pagination(props: IPagination): JSX.Element {
   const [startPage, setStartPage] = useState(1);
-  const lastPage = Math.ceil(
-    (props.dataBoardsCount?.fetchBoardsCount ?? 10) / 10
-  );
+  const [lastPage, setLastPage] = useState(10);
+  useEffect(() => {
+    if (typeof props.dataBoardsCount?.fetchBoardsCount !== "undefined") {
+      setLastPage(
+        Math.ceil((props.dataBoardsCount?.fetchBoardsCount ?? 10) / 10)
+      );
+    }
+    if (typeof props.dataUsedISoldCount !== "undefined") {
+      setLastPage(
+        Math.ceil(
+          (props.dataUsedISoldCount?.fetchUseditemsCountISold ?? 10) / 10
+        )
+      );
+    }
+  }, [props]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const onClickPageNumber =
     (currentPage: number) =>
