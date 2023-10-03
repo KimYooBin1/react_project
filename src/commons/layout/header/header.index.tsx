@@ -29,7 +29,9 @@ export default function LayoutHeader(): JSX.Element {
           <S.ProfileInfoText>{data?.fetchUserLoggedIn.email}</S.ProfileInfoText>
         </S.ProfileInfoBox>
       </S.ProfileBox>
-      <S.ProfileBtn>충전하기</S.ProfileBtn>
+      <S.ProfileBtn onClick={onClickMoveToPage("/mypage/payment")}>
+        충전하기
+      </S.ProfileBtn>
       <S.ProfileBtn onClick={onClickLogout}>로그아웃</S.ProfileBtn>
     </S.UserBox>
   );

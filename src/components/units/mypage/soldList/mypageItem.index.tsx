@@ -1,6 +1,6 @@
-import { useMoveToPage } from "../../../commons/hook/custom/useMoveToPage";
-import { getDate } from "../../../commons/libraries/utils";
-import type { IUseditem } from "../../../commons/types/generated/types";
+import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
+import { getDate } from "../../../../commons/libraries/utils";
+import type { IUseditem } from "../../../../commons/types/generated/types";
 import * as info from "./mypage.styles";
 
 interface IMypageItemPros {

@@ -1,19 +1,20 @@
-import { useState } from "react";
-import { useQueryFetchUseditemsISold } from "../../src/commons/hook/query/useQueryFetchBoardsOfMine";
-import Search from "../../src/components/commons/search/search.index";
-import MyPage from "../../src/components/units/mypage/mypage.index";
-import Pagination from "../../src/components/commons/pagination/index.index";
-import UseQueryFetchUseditemsCountISold from "../../src/commons/hook/query/useQueryFetchUseditemsCountISold";
+import styled from "@emotion/styled";
+import { useAuth } from "../../src/commons/hook/custom/useAuth";
+import MyPageMain from "../../src/components/units/mypage/main/main.index";
+import MyPage from "../../src/components/units/mypage/soldList/mypage.index";
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
 
 export default function MyPageBoard(): JSX.Element {
-  const { data, refetch } = useQueryFetchUseditemsISold();
-  const { data: dataUsedISoldCount } = UseQueryFetchUseditemsCountISold();
-  const [, SetKeyword] = useState("");
+  useAuth();
   return (
-    <>
-      <Search refetch={refetch} SetKeyword={SetKeyword} />
-      <MyPage data={data} />
-      <Pagination refetch={refetch} dataUsedISoldCount={dataUsedISoldCount} />
-    </>
+    <Body>
+      <MyPageMain />
+      <MyPage />
+    </Body>
   );
 }
