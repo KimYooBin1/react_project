@@ -19,32 +19,36 @@ export default function ListPage(props: IListPage): JSX.Element {
           <info.HeaderWriter>작성자</info.HeaderWriter>
           <info.HeaderDate>날짜</info.HeaderDate>
         </info.Post>
-        {props.data?.fetchBoards.map((el: IBoard, index: number) => (
-          <info.PostList
-            key={el._id}
-            id={el._id}
-            onClick={onClickMoveToPage(`/boards/${el._id}`)}
-          >
-            <info.Num>{index + 1}</info.Num>
-            <info.Title>
-              {el.title
-                .replaceAll(props.keyword, `!@#${props.keyword}!@#`)
-                .split("!@#")
-                .map((el1: any) => (
-                  <info.TitleWord
-                    key={uuid4()}
-                    style={{
-                      color: el1 === props.keyword ? "orange" : "",
-                    }}
-                  >
-                    {el1}
-                  </info.TitleWord>
-                ))}
-            </info.Title>
-            <info.Writer>{el?.writer}</info.Writer>{" "}
-            <info.Date>{getDate(el?.createdAt)}</info.Date>
-          </info.PostList>
-        ))}
+        {(props.data?.fetchBoards ?? new Array(10).fill(1)).map(
+          (el: IBoard, index: number) => (
+            <info.PostList
+              key={el._id}
+              id={el._id}
+              onClick={onClickMoveToPage(`/boards/${el._id}`)}
+            >
+              <info.Num>{index + 1}</info.Num>
+              {props.data && (
+                <info.Title>
+                  {el.title
+                    .replaceAll(props.keyword, `!@#${props.keyword}!@#`)
+                    .split("!@#")
+                    .map((el1: any) => (
+                      <info.TitleWord
+                        key={uuid4()}
+                        style={{
+                          color: el1 === props.keyword ? "orange" : "",
+                        }}
+                      >
+                        {el1}
+                      </info.TitleWord>
+                    ))}
+                </info.Title>
+              )}
+              <info.Writer>{el?.writer}</info.Writer>{" "}
+              <info.Date>{getDate(el?.createdAt)}</info.Date>
+            </info.PostList>
+          )
+        )}
       </info.Wrapper>
       <info.BtnWrapper>
         <info.RegBtn onClick={onClickMoveToPage("/boards/new")}>

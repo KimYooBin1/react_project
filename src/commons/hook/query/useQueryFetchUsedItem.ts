@@ -3,7 +3,6 @@ import type {
   IQuery,
   IQueryFetchUseditemArgs,
 } from "../../types/generated/types";
-
 export const FETCH_USED_ITEM = gql`
   query fetchUseditem($useditemId: ID!) {
     fetchUseditem(useditemId: $useditemId) {
