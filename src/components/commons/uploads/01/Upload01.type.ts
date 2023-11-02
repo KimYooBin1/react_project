@@ -8,7 +8,7 @@ export interface IUpLoadBtnItemPage {
 }
 
 export interface IUpLoadBtnItem {
-  onChangeFileUrl: (url: string, index: number) => void;
+  onChangeFileUrl: (file: File, index: number) => void;
   index: number;
   url: string;
 }

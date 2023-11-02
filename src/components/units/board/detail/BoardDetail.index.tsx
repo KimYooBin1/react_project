@@ -44,10 +44,7 @@ export default function BoardDetail(): JSX.Element {
             {data?.fetchBoard.images
               ?.filter((el) => el)
               .map((el, index) => (
-                <info.ContentImg
-                  key={index}
-                  src={`https://storage.googleapis.com/${el}`}
-                ></info.ContentImg>
+                <info.ContentImg key={index} src={el}></info.ContentImg>
               ))}
           </div>
           <info.Content

@@ -19,5 +19,6 @@ module.exports = {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/promise-function-async": "off",
   },
 };

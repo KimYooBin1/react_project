@@ -6,10 +6,7 @@ export default function UpLoadBtnItemUI(
   return (
     <>
       {props.url !== "" ? (
-        <info.Img
-          onClick={props.onClickImageInput}
-          src={`https://storage.googleapis.com/${props.url}`}
-        ></info.Img>
+        <info.Img onClick={props.onClickImageInput} src={props.url}></info.Img>
       ) : (
         <info.Btn2 onClick={props.onClickImageInput}>
           +<br></br>upload

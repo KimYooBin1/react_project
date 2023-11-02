@@ -13,7 +13,6 @@ const ReactQuill = dynamic(async () => await import("react-quill"), {
 export default function BoardWrite(props: IBoardComponent): JSX.Element {
   const { id: boardId } = useIdChecker("boardId");
   const { data } = useQueryFetchBoard({ boardId });
-  console.log(data);
   const {
     handleComplete,
     onChangeFileUrl,

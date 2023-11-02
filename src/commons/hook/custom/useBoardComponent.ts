@@ -8,11 +8,18 @@ import {
   success,
 } from "../../libraries/modal";
 import { useRouter } from "next/router";
-import type { IQuery, IUpdateBoardInput } from "../../types/generated/types";
+import type {
+  IMutation,
+  IMutationUploadFileArgs,
+  IQuery,
+  IUpdateBoardInput,
+} from "../../types/generated/types";
 import type { Address } from "react-daum-postcode/lib/loadPostcode";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../../components/units/board/boardcomponent/BoardComponent.yup";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@apollo/client";
+import { UPLOAD_FILE } from "../../../components/commons/uploads/01/Upload01.queries";
 interface IUseBoardComponent {
   isEdit: boolean;
   data?: Pick<IQuery, "fetchBoard">;
@@ -58,7 +65,13 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
   const [address, setAddress] = useState("");
 
   const [images, setImages] = useState(["", "", ""]);
+  const [files, setFiles] = useState<File[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const [loadFile] = useMutation<
+    Pick<IMutation, "uploadFile">,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
 
   const onToggleModal = (): void => {
     setIsOpen((prev) => !prev);
@@ -79,6 +92,17 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
   }
 
   const onClickSubmit = async (data: IFetchBoardArgs): Promise<void> => {
+    const urlResult = await Promise.all(
+      files.map((el) => el && loadFile({ variables: { file: el } }))
+    );
+
+    const url = urlResult.map(
+      (el) =>
+        `https://storage.googleapis.com/${
+          el.data?.uploadFile.url ? el.data?.uploadFile.url : ""
+        }`
+    );
+
     const result = await createBoard({
       variables: {
         createBoardInput: {
@@ -87,7 +111,7 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
           title: data.title,
           contents: data.contents,
           youtubeUrl: data.youtubeUrl,
-          images: [...images],
+          images: url,
           boardAddress: {
             zipcode,
             address,
@@ -105,7 +129,18 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
   };
 
   const onClickEdit = async (data: IFetchBoardArgs): Promise<void> => {
-    const currentFile = JSON.stringify(images);
+    const urlResult = await Promise.all(
+      files.map((el) => el && loadFile({ variables: { file: el } }))
+    );
+
+    const url = urlResult.map(
+      (el) =>
+        `https://storage.googleapis.com/${
+          el.data?.uploadFile.url ? el.data?.uploadFile.url : ""
+        }`
+    );
+
+    const currentFile = JSON.stringify(url);
     const defaultFile = JSON.stringify(arg.data?.fetchBoard.images);
     const isChangedFile = currentFile !== defaultFile;
     if (
@@ -148,7 +183,7 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
         updateInput.boardAddress.addressDetail = data.addressDetail;
       }
     }
-    if (isChangedFile) updateInput.images = images;
+    if (isChangedFile) updateInput.images = url;
     try {
       const result = await updateBoard({
         variables: {
@@ -170,10 +205,20 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
     }
   };
 
-  const onChangeFileUrl = (url: string, index: number): void => {
-    const NewArr = [...images];
-    NewArr[index] = url;
-    setImages(NewArr);
+  const onChangeFileUrl = (file: File, index: number): void => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = (data) => {
+      if (typeof data.target?.result === "string") {
+        const NewArr = [...images];
+        NewArr[index] = data.target.result;
+        setImages(NewArr);
+
+        const NewFile = [...files];
+        NewFile[index] = file;
+        setFiles(NewFile);
+      }
+    };
   };
 
   const onChangeContent = (value: string) => {
