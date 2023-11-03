@@ -9,12 +9,11 @@ import { useBoardLike } from "../../../../commons/hook/custom/useBoardLike";
 export default function BoardDetail(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const { onClickDelete } = useBoard();
-  const { onClickLike, onClickDisLike } = useBoardLike();
   const { id: boardId } = useIdChecker("boardId");
   const { data } = useQueryFetchBoard({
     boardId,
   });
-  console.log("렌더링 되었습니다");
+  const { onClickLike, onClickDisLike } = useBoardLike({ data, boardId });
   return (
     <info.Body>
       <info.Wrapper>
