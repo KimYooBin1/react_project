@@ -1,11 +1,19 @@
 import { useRouter } from "next/router";
 import { alertError } from "../../libraries/modal";
-import useMutationToggleUseditemPick from "../mutation/useMutationtoggleUseditemPick";
-import { FETCH_USED_ITEM } from "../query/useQueryFetchUsedItem";
+import { gql } from "@apollo/client";
+import useMutationToggleUseditemPick from "../mutation/useMutationToggleUseditemPick";
 
 interface IToggleUseditemPick {
   useditemId: string;
 }
+
+const FETCH_USED_ITEM = gql`
+  query fetchUseditem($useditemId: ID!) {
+    fetchUseditem(useditemId: $useditemId) {
+      pickedCount
+    }
+  }
+`;
 
 export default function useToggleUseditemPick(props: IToggleUseditemPick) {
   const [toggleUsedPick] = useMutationToggleUseditemPick();
@@ -16,14 +24,30 @@ export default function useToggleUseditemPick(props: IToggleUseditemPick) {
         variables: {
           useditemId: props.useditemId,
         },
-        refetchQueries: [
-          {
-            query: FETCH_USED_ITEM,
-            variables: {
-              useditemId: props.useditemId,
-            },
-          },
-        ],
+        update(cache, {data}){
+          console.log(data);
+          cache.writeQuery(
+            {
+              query:FETCH_USED_ITEM,
+              variables:{useditemId: props.useditemId},
+              data:{
+                fetchUseditem:{
+                _id:props.useditemId,
+                __typename:"Board",
+                pickedCount:data?.toggleUseditemPick
+                }
+              }
+            }
+          )
+        }
+        // refetchQueries: [
+        //   {
+        //     query: FETCH_USED_ITEM,
+        //     variables: {
+        //       useditemId: props.useditemId,
+        //     },
+        //   },
+        // ],
       });
     } catch (error) {
       if (error instanceof Error) {
