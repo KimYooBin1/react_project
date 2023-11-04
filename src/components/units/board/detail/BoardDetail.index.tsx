@@ -13,7 +13,7 @@ export default function BoardDetail(): JSX.Element {
   const { data } = useQueryFetchBoard({
     boardId,
   });
-  const { onClickLike, onClickDisLike } = useBoardLike({ data, boardId });
+  const { onClickLike, onClickDisLike } = useBoardLike({ boardId });
   return (
     <info.Body>
       <info.Wrapper>
