@@ -19,7 +19,6 @@ export const useShopList = (arg: IUseShopListArg) => {
       updateQuery: (prev: any, { fetchMoreResult }: any) => {
         if (fetchMoreResult?.fetchUseditems === undefined) {
           setMore(false);
-          console.log(more);
           return { fetchUseditems: [...prev.fetchUseditems] };
         }
         setLength((prev) => prev + 10);

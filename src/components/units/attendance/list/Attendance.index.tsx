@@ -19,7 +19,6 @@ export default function AttendacePage(): JSX.Element {
       const result = await getDocs(board);
       const boards = result.docs.map((el) => el.data());
       setDataBoards(boards);
-      console.log(boards);
     };
     void fetchBoards();
   }, []);

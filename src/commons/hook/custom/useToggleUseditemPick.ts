@@ -25,7 +25,6 @@ export default function useToggleUseditemPick(props: IToggleUseditemPick) {
           useditemId: props.useditemId,
         },
         update(cache, {data}){
-          console.log(data);
           cache.writeQuery(
             {
               query:FETCH_USED_ITEM,

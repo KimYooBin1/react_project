@@ -22,7 +22,7 @@ export const useUsedItem = (arg: IUsedItemArg) => {
       void router.push(`/shopboards/page`);
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message);
+        console.log(error.message);
       }
     }
     success("물건 삭제");

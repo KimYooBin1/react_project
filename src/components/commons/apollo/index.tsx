@@ -19,6 +19,7 @@ interface IApolloProps {
 
 export default function Apollo(props: IApolloProps): JSX.Element {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
   const accessTokenCheck = useRecoilValueLoadable(restoreAccessTokenLoadable)
 
   useEffect(() => {
@@ -47,7 +48,6 @@ export default function Apollo(props: IApolloProps): JSX.Element {
       }
     }  
   })
-  console.log(errorLink)
 
   const uploadLink = createUploadLink({
     uri: "https://backend-practice.codebootcamp.co.kr/graphql",

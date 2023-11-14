@@ -48,7 +48,6 @@ export const Calendar = (props: ICalendar) => {
         startDate,
       });
     } else {
-      console.log("Clear");
       void props.refetch({
         page: 1,
         endDate: undefined,

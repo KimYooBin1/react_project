@@ -7,5 +7,5 @@ export const useMoveToPage = (): IUseMoveToPageReturn => {
   const onClickMoveToPage = (url: string) => () => {
     void router.push(`${url}`);
   };
-  return { onClickMoveToPage };
+  return { onClickMoveToPage};
 };

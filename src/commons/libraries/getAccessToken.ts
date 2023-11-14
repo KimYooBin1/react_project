@@ -20,9 +20,7 @@ export const getAccessToken = async () : Promise<string> =>{
             {credentials:"include"}
         )
         const result = await graphqlClient.request<Pick<IMutation,"restoreAccessToken">>(RESTORE_ACCESS_TOKEN);
-        console.log(result);
         if(result) setIsLogin(true);
-        else setIsLogin(false);
         return result.restoreAccessToken.accessToken
     }catch(error){
         if(error instanceof Error){

@@ -11,6 +11,11 @@ export const isLoginState = atom({
   default: false,
 });
 
+export const preUrl = atom({
+  key:"preUrl",
+  default:""
+})
+
 export const restoreAccessTokenLoadable = selector({
   key:"restoreAccessTokenLoadable",
   get : async () =>{

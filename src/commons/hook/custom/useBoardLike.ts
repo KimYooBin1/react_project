@@ -30,7 +30,6 @@ export const useBoardLike = (props: IUseBoardLikeArg) => {
           likeBoard: (data?.fetchBoard.likeCount || 0) + 1,
         },
         update(cache, { data }) {
-          console.log(data);
           cache.writeQuery({
             query: FETCH_BOARD,
             variables: { boardId: props.boardId },

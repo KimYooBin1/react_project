@@ -46,7 +46,6 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
     const images = arg.data?.fetchBoard.images;
     if (images !== undefined && images !== null) setImages([...images]);
     if (arg.isEdit) {
-      console.log(arg.data?.fetchBoard);
       setValue("contents", arg.data?.fetchBoard.contents ?? "");
       setValue("writer", arg.data?.fetchBoard.writer ?? "");
       setValue("title", arg.data?.fetchBoard.title ?? "");

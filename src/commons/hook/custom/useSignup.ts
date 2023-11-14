@@ -27,7 +27,6 @@ export const useSignUp = () => {
           },
         },
       });
-      console.log(result);
       void router.push("/login");
     } catch (error) {
       if (error instanceof Error) {

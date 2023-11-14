@@ -92,7 +92,6 @@ export const useUseditem = (arg: IUseditemArgs) => {
     onToggleModal();
   };
   const AddressHandle = (data: Address): void => {
-    console.log(data);
     setValue("zipcode", data.zonecode);
     setValue("address", data.address);
     setValue("lat", arg.lat);
@@ -101,8 +100,6 @@ export const useUseditem = (arg: IUseditemArgs) => {
     void trigger("lng");
     void trigger("zipcode");
     void trigger("address");
-    console.log(formState.errors);
-    console.log(watch("lat"));
     onToggleModal();
   };
 
@@ -150,7 +147,6 @@ export const useUseditem = (arg: IUseditemArgs) => {
       errorChange();
       return;
     }
-    console.log("false");
     const currentFile = JSON.stringify(images);
     const defaultFile = JSON.stringify(arg.data?.fetchUseditem.images);
     const isChangedFile = currentFile !== defaultFile;

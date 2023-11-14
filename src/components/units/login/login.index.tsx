@@ -4,9 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./login.yup";
 import { useMoveToPage } from "../../../commons/hook/custom/useMoveToPage";
 import { useLogin } from "../../../commons/hook/custom/useLogin";
+import useSaveAddress from "../../../commons/hook/custom/useSaveAddress";
 
 export default function LoginPage(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
+  useSaveAddress();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {

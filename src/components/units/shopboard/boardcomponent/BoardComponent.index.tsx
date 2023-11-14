@@ -45,7 +45,6 @@ export default function ShopBoardWrite(
     lat: String(lat),
     lng: String(lng),
   });
-  console.log(formState.isValid);
   return (
     <info.Body>
       {isOpen && (

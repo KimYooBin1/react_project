@@ -7,18 +7,25 @@ import { success } from "../../libraries/modal";
 import { useMoveToPage } from "../../hook/custom/useMoveToPage";
 import { useQueryFetchUserLoggedIn } from "../../hook/query/useQueryFetchUserLoggedIn";
 import { useMutationLogoutUser } from "../../hook/mutation/useMutationLogout";
+import useSaveAddress from "../../hook/custom/useSaveAddress";
 
 export default function LayoutHeader(): JSX.Element {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
   const [, setAccessToken] = useRecoilState(accessTokenState);
+
   const [logout] = useMutationLogoutUser();
   const { onClickMoveToPage } = useMoveToPage();
 
-  const onClickLogout = (): void => {
+  const {router,preAddress,setPreAddress} = useSaveAddress();
+
+  const onClickLogout =  (): void => {
+    setPreAddress((prev) => router.asPath);
     setIsLogin(false);
     setAccessToken("");
     void logout();
     success("로그아웃");
+    console.log(preAddress)
+    void router.push(`${preAddress}`)
   };
   const { data } = useQueryFetchUserLoggedIn();
 
