@@ -10,7 +10,6 @@ import { useQueryFetchUserLoggedIn } from "../../hook/query/useQueryFetchUserLog
 export default function LayoutHeader(): JSX.Element {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
   const [, setAccessToken] = useRecoilState(accessTokenState);
-
   const { onClickMoveToPage } = useMoveToPage();
 
   const onClickLogout = (): void => {
