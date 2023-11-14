@@ -6,15 +6,18 @@ import { Popover, Space } from "antd";
 import { success } from "../../libraries/modal";
 import { useMoveToPage } from "../../hook/custom/useMoveToPage";
 import { useQueryFetchUserLoggedIn } from "../../hook/query/useQueryFetchUserLoggedIn";
+import { useMutationLogoutUser } from "../../hook/mutation/useMutationLogout";
 
 export default function LayoutHeader(): JSX.Element {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
   const [, setAccessToken] = useRecoilState(accessTokenState);
+  const [logout] = useMutationLogoutUser();
   const { onClickMoveToPage } = useMoveToPage();
 
   const onClickLogout = (): void => {
     setIsLogin(false);
     setAccessToken("");
+    void logout();
     success("로그아웃");
   };
   const { data } = useQueryFetchUserLoggedIn();
