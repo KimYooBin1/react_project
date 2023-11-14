@@ -31,7 +31,7 @@ export const useLogin = () => {
         },
       });
       console.log(result);
-      const accessToken = result.data?.loginUserExample.accessToken;
+      const accessToken = result.data?.loginUser.accessToken;
       if (accessToken === undefined) {
         alert("로그인에 실패했습니다! 다시 시도해라");
         return;
