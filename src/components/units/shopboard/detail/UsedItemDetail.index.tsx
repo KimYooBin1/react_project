@@ -3,14 +3,14 @@ import { Tooltip } from "antd";
 import { getDate2 } from "../../../../commons/libraries/utils";
 import { useIdChecker } from "../../../../commons/hook/custom/useIdChecker";
 import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
-import { useUsedItem } from "../../../../commons/hook/custom/useUsedItemDetail";
 import { KakaoMap } from "../../../commons/kakaoMap/kakaoMap";
 import { useState } from "react";
 import useToggleUseditemPick from "../../../../commons/hook/custom/useToggleUseditemPick";
+import { useUsedItemDetail } from "../../../../commons/hook/custom/useUsedItemDetail";
 export default function ShopBoardDetail(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const { id: useditemId } = useIdChecker("useditemId");
-  const { onClickDelete, onClickEdit, data, userData } = useUsedItem({
+  const { onClickDelete, onClickEdit, data, userData } = useUsedItemDetail({
     useditemId,
   });
   const { onClickPickBtn } = useToggleUseditemPick({ useditemId });

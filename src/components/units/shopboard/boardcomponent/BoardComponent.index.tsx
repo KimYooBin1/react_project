@@ -1,5 +1,5 @@
 import { useAuth } from "../../../../commons/hook/custom/useAuth";
-import { useUseditem } from "../../../../commons/hook/custom/useUseditem";
+import { useUseditem } from "../../../../commons/hook/custom/useUsedItem";
 import UpLoadBtnItem from "../../../commons/uploads/01/Upload01.container";
 import * as info from "./BoardComponent.styles";
 import type { IShopBoardComponent } from "./BoardComponent.type";

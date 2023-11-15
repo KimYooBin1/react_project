@@ -8,7 +8,7 @@ interface IUsedItemArg {
   useditemId: string;
 }
 
-export const useUsedItem = (arg: IUsedItemArg) => {
+export const useUsedItemDetail = (arg: IUsedItemArg) => {
   const router = useRouter();
   const { data } = useQueryFetchUsedItem(arg.useditemId);
   const [deleteUsedItem] = useMutationDeleteUsedItem();

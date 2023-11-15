@@ -5,9 +5,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../../components/units/shopboard/boardcomponent/UsedItemComponent.yup";
 import { useState, type ChangeEvent, useEffect } from "react";
 import type { Address } from "react-daum-postcode/lib/loadPostcode";
-import type { IQuery, IUpdateUseditemInput } from "../../types/generated/types";
+import type {
+  IMutation,
+  IMutationUploadFileArgs,
+  IQuery,
+  IUpdateUseditemInput,
+} from "../../types/generated/types";
 import { alertError, errorChange, success } from "../../libraries/modal";
 import { useRouter } from "next/router";
+import { useMutation } from "@apollo/client";
+import { UPLOAD_FILE } from "../../../components/commons/uploads/01/Upload01.queries";
 
 interface IFetchUseditemArgs {
   name: string;
@@ -62,10 +69,16 @@ export const useUseditem = (arg: IUseditemArgs) => {
   }, [arg.data]);
 
   const [images, setImages] = useState(["", "", ""]);
+  const [files, setFiles] = useState<File[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const [createUseditem] = useMutationCreateUsedItem();
   const [updateUseditem] = useMutationUpdateUsedItem();
+
+  const [loadFile] = useMutation<
+    Pick<IMutation, "uploadFile">,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
 
   const router = useRouter();
 
@@ -103,10 +116,26 @@ export const useUseditem = (arg: IUseditemArgs) => {
     onToggleModal();
   };
 
-  const onChangeFileUrl = (url: string, index: number): void => {
-    const NewArr = [...images];
-    NewArr[index] = url;
-    setImages(NewArr);
+  // const onChangeFileUrl = (url: string, index: number): void => {
+  //   const NewArr = [...images];
+  //   NewArr[index] = url;
+  //   setImages(NewArr);
+  // };
+
+  const onChangeFileUrl = (file: File, index: number): void => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = (data) => {
+      if (typeof data.target?.result === "string") {
+        const NewArr = [...images];
+        NewArr[index] = data.target.result;
+        setImages(NewArr);
+
+        const NewFile = [...files];
+        NewFile[index] = file;
+        setFiles(NewFile);
+      }
+    };
   };
 
   const onClickSubmit = async (data: IFetchUseditemArgs) => {
@@ -115,6 +144,17 @@ export const useUseditem = (arg: IUseditemArgs) => {
       return;
     }
     try {
+      const urlResult = await Promise.all(
+        files.map((el) => el && loadFile({ variables: { file: el } }))
+      );
+
+      const url = urlResult.map(
+        (el) =>
+          `https://storage.googleapis.com/${
+            el.data?.uploadFile.url ? el.data?.uploadFile.url : ""
+          }`
+      );
+
       await createUseditem({
         variables: {
           createUseditemInput: {
@@ -129,7 +169,7 @@ export const useUseditem = (arg: IUseditemArgs) => {
               lat: Number(data.lat),
               lng: Number(data.lng),
             },
-            images,
+            images: url,
           },
         },
       });
@@ -147,7 +187,18 @@ export const useUseditem = (arg: IUseditemArgs) => {
       errorChange();
       return;
     }
-    const currentFile = JSON.stringify(images);
+    const urlResult = await Promise.all(
+      files.map((el) => el && loadFile({ variables: { file: el } }))
+    );
+
+    const url = urlResult.map(
+      (el) =>
+        `https://storage.googleapis.com/${
+          el.data?.uploadFile.url ? el.data?.uploadFile.url : ""
+        }`
+    );
+
+    const currentFile = JSON.stringify(url);
     const defaultFile = JSON.stringify(arg.data?.fetchUseditem.images);
     const isChangedFile = currentFile !== defaultFile;
     if (
