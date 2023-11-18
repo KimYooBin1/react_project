@@ -32,7 +32,7 @@ export const WriteInfo = styled.div`
   align-items: center;
 `;
 
-export const WriteInfoInput = styled.input`
+export const WriteInfoInput = styled.div`
   width: 180px;
   height: 30px;
   margin-right: 20px;
