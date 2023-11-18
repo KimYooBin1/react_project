@@ -81,11 +81,12 @@ export const WriteCommentBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-right: 20px;
 `;
 
 export const WriteComment = styled.textarea`
   width: 100%;
-  height: 100px;
+  height: 70px;
   padding: 10px;
   border: none;
   border-bottom: 1px solid lightgray;
@@ -106,7 +107,7 @@ export const WriteCommentInfoText = styled.div`
 
 export const WriteCommentInfoBtn = styled.button`
   width: 90px;
-  height: 50px;
+  height: 35px;
   background-color: black;
   color: white;
   cursor: pointer;

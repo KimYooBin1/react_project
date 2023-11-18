@@ -5,10 +5,20 @@ import BoardCommentWriter from "./commentWrite/CommentWrite.index";
 import { useIdChecker } from "../../../../commons/hook/custom/useIdChecker";
 import type { IUseditemQuestionItemArgs } from "./UseditemQuestion.type";
 import { useUseditemQuestion } from "../../../../commons/hook/custom/useUseditemQuestion";
+import useQueryFetchUseditemQuestionAnswers from "../../../../commons/hook/query/useQueryFetchUseditemQuestionAnswers";
+import QuestionAnswer from "./questionAnswer/QuestionAnswer.index";
+import QuestionWrite from "./questionAnswer/questionWrite/QuestionWrite.index";
 
 export default function UseditemQuestionItem(props:IUseditemQuestionItemArgs): JSX.Element {
+
+  const {data} = useQueryFetchUseditemQuestionAnswers({useditemQuestionId:props.el._id});
+
   const { id: useditemId } = useIdChecker("useditemId");
   const [isEdit, setIsEdit] = useState(false);
+  const [isAnswer, setIsAnswer] = useState(false);
+
+  const onClickAnswer = () =>{setIsAnswer((prev) => !prev)};
+
   const {
     onClickDelete,
     onClickEdit,
@@ -32,7 +42,7 @@ export default function UseditemQuestionItem(props:IUseditemQuestionItemArgs): J
                 </info.CommentProfile>
                 <info.Comment>{props.el?.contents}</info.Comment>
               </info.CommentInfo>
-              <div>
+              <info.CommentControl>
                 <img
                   src="/img/edit.png"
                   id={props.el?._id}
@@ -45,11 +55,24 @@ export default function UseditemQuestionItem(props:IUseditemQuestionItemArgs): J
                   onClick={onClickDelete}
                   style={{ cursor: "pointer" }}
                 />
-              </div>
+                <img
+                  src="/img/Answer.png"
+                  id={props.el?._id}
+                  onClick={onClickAnswer}
+                  style={{ cursor: "pointer" }}
+                />
+                
+              </info.CommentControl>
             </info.CommentBoxInfo>
             <info.CommentDate>{getDate(props.el?.createdAt)}</info.CommentDate>
+            {isAnswer && <QuestionWrite setIsAnswer={setIsAnswer} isEdit={false} useditemQuestionId={props.el._id}/>}
+            {data?.fetchUseditemQuestionAnswers.map((el) => (
+              <QuestionAnswer key={el._id} el={el} useditemQuestionId={props.el._id}/> 
+              ))
+            }
           </info.CommentBox>
         </info.CommentBoxs>
+        
       ) : (
         <>
           <BoardCommentWriter
