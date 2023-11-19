@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import ReactPlayer from "react-player";
 
 import { DislikeOutlined, LikeOutlined } from "@ant-design/icons";
+import { Modal } from "antd";
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -123,3 +124,6 @@ export const DisLike = styled(DislikeOutlined)`
 export const LikeBoxText = styled.span`
   text-align: center;
 `;
+
+
+export const PurchaseModal = styled(Modal)``;
