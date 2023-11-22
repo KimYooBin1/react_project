@@ -1,10 +1,8 @@
 import type { MouseEvent } from "react";
-import type { IQuery } from "../../../commons/types/generated/types";
 
 export interface IPagination {
   refetch: any;
-  dataBoardsCount?: Pick<IQuery, "fetchBoardsCount">;
-  dataUsedISoldCount?: Pick<IQuery, "fetchUseditemsCountISold">;
+  count?: number
 }
 
 export interface IPaginationUI {

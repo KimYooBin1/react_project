@@ -6,6 +6,7 @@ import Search from "../../../commons/search/search.index";
 import { useQueryFetchUseditemsISold } from "../../../../commons/hook/query/useQueryFetchBoardsOfMine";
 import UseQueryFetchUseditemsCountISold from "../../../../commons/hook/query/useQueryFetchUseditemsCountISold";
 import { useState } from "react";
+import MoveMyPage from "../../../commons/moveMyPage/moveMyPage.index";
 // import Search from "../../commons/search/search.index";
 
 export default function MyPage(): JSX.Element {
@@ -15,6 +16,7 @@ export default function MyPage(): JSX.Element {
   return (
     <info.Body>
       <info.BoardsWrapper>
+        <MoveMyPage />
         <Search refetch={refetch} SetKeyword={SetKeyword} />
         <info.Post>
           <info.HeaderNum>번호</info.HeaderNum>
@@ -35,7 +37,7 @@ export default function MyPage(): JSX.Element {
             </div>
           )}
         </info.PostList>
-        <Pagination refetch={refetch} dataUsedISoldCount={dataUsedISoldCount} />
+        <Pagination refetch={refetch} count={dataUsedISoldCount?.fetchUseditemsCountISold} />
       </info.BoardsWrapper>
     </info.Body>
   );

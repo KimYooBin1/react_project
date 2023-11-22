@@ -6,16 +6,9 @@ export default function Pagination(props: IPagination): JSX.Element {
   const [startPage, setStartPage] = useState(1);
   const [lastPage, setLastPage] = useState(10);
   useEffect(() => {
-    if (typeof props.dataBoardsCount?.fetchBoardsCount !== "undefined") {
+    if (typeof props.count !== "undefined") {
       setLastPage(
-        Math.ceil((props.dataBoardsCount?.fetchBoardsCount ?? 10) / 10)
-      );
-    }
-    if (typeof props.dataUsedISoldCount !== "undefined") {
-      setLastPage(
-        Math.ceil(
-          (props.dataUsedISoldCount?.fetchUseditemsCountISold ?? 10) / 10
-        )
+        Math.ceil((props.count ?? 10) / 10)
       );
     }
   }, [props]);

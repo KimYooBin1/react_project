@@ -9,7 +9,6 @@ import Search from "../../../src/components/commons/search/search.index";
 export default function NewBoard(): JSX.Element {
   const { data: dataBoardsCount, refetch: refetchBoardsCount } =
     useQueryFetchBoardsCount();
-
   const { data, refetch } = useQueryFetchBoards();
   const [keyword, SetKeyword] = useState("");
   return (
@@ -21,7 +20,7 @@ export default function NewBoard(): JSX.Element {
         refetchBoardsCount={refetchBoardsCount}
       />
       <ListPage data={data} keyword={keyword} />
-      <Pagination refetch={refetch} dataBoardsCount={dataBoardsCount} />
+      <Pagination refetch={refetch} count={dataBoardsCount?.fetchBoardsCount} />
     </>
   );
 }
