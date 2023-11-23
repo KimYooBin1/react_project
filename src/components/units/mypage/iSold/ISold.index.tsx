@@ -1,6 +1,6 @@
-import * as info from "./mypage.styles";
+import * as info from "./ISold.styles";
 import { v4 as uuidv4 } from "uuid";
-import MyPageItem from "./mypageItem.index";
+import MyPageItem from "./ISoldItem.index";
 import Pagination from "../../../commons/pagination/index.index";
 import Search from "../../../commons/search/search.index";
 import { useQueryFetchUseditemsISold } from "../../../../commons/hook/query/useQueryFetchBoardsOfMine";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import MoveMyPage from "../../../commons/moveMyPage/moveMyPage.index";
 // import Search from "../../commons/search/search.index";
 
-export default function MyPage(): JSX.Element {
+export default function ISoldPage(): JSX.Element {
   const { data, refetch } = useQueryFetchUseditemsISold();
   const { data: dataUsedISoldCount } = UseQueryFetchUseditemsCountISold();
   const [, SetKeyword] = useState("");

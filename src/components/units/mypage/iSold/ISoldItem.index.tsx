@@ -1,14 +1,14 @@
 import { useMoveToPage } from "../../../../commons/hook/custom/useMoveToPage";
 import { getDate } from "../../../../commons/libraries/utils";
 import type { IUseditem } from "../../../../commons/types/generated/types";
-import * as info from "./mypage.styles";
+import * as info from "./ISold.styles";
 
-interface IMypageItemPros {
+interface ISoldItemPros {
   el: IUseditem;
   index: number;
 }
 
-export default function MyPageItem(props: IMypageItemPros): JSX.Element {
+export default function ISoldItem(props: ISoldItemPros): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   return (
     <>
