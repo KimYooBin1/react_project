@@ -6,7 +6,7 @@ import ListPage from "../../../src/components/units/board/list/List.index";
 import BestBoard from "../../../src/components/commons/bestBoard/bestBoard.index";
 import Search from "../../../src/components/commons/search/search.index";
 
-export default function NewBoard(): JSX.Element {
+export default function BoardsPage(): JSX.Element {
   const { data: dataBoardsCount, refetch: refetchBoardsCount } =
     useQueryFetchBoardsCount();
   const { data, refetch } = useQueryFetchBoards();
