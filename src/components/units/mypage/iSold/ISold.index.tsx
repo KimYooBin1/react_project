@@ -6,7 +6,7 @@ import Search from "../../../commons/search/search.index";
 import { useQueryFetchUseditemsISold } from "../../../../commons/hook/query/useQueryFetchUseditemsISold";
 import UseQueryFetchUseditemsCountISold from "../../../../commons/hook/query/useQueryFetchUseditemsCountISold";
 import { useState } from "react";
-import MoveMyPage from "../../../commons/moveMyPage/moveMyPage.index";
+import MoveMySellInfoPage from "../../../commons/moveMyPage/moveMySellInfoPage.index";
 // import Search from "../../commons/search/search.index";
 
 export default function ISoldPage(): JSX.Element {
@@ -16,7 +16,7 @@ export default function ISoldPage(): JSX.Element {
   return (
     <info.Body>
       <info.BoardsWrapper>
-        <MoveMyPage />
+        <MoveMySellInfoPage />
         <Search refetch={refetch} SetKeyword={SetKeyword} />
         <info.Post>
           <info.HeaderNum>번호</info.HeaderNum>

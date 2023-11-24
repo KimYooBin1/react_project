@@ -11,7 +11,6 @@ export default function useFetchPointTransactions(){
     const {data:sellCount} = useQueryFetchPointTransactionsCountOfSelling();
     const {data:chargeCount} = useQueryFetchPointTransactionsCountOfLoading();
     const {data:boughtCount} = useQueryFetchUseditemsCountIBought();
-    console.log(sellCount?.fetchPointTransactionsCountOfSelling)
     useEffect(() => {
         setCount(Number(sellCount?.fetchPointTransactionsCountOfSelling) + Number(chargeCount?.fetchPointTransactionsCountOfLoading) + Number(boughtCount?.fetchUseditemsCountIBought));
     },[sellCount, chargeCount, boughtCount])

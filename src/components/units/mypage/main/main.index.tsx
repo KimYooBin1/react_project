@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import Pagination from "../../../commons/pagination/index.index";
 import Search from "../../../commons/search/search.index";
 import { useState } from "react";
-import MoveMyPage from "../../../commons/moveMyPage/moveMyPage.index";
+import MoveMyPage from "../../../commons/moveMyPage/moveMyPointInfoPage.index";
 import useFetchPointTransactions from "../../../../commons/hook/custom/useFetchPointTransactions";
 import MainPageItem from "./mainItem.index";
 import type { IPointTransaction } from "../../../../commons/types/generated/types";

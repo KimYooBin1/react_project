@@ -1,6 +1,6 @@
 import { useMoveToPage } from "../../../commons/hook/custom/useMoveToPage"
 import * as info from "./moveMyPage.style"
-export default function MoveMyPage(){
+export default function MoveMyPointInfoPage(){
     const {onClickMoveToPage} = useMoveToPage();
     return(
         <>

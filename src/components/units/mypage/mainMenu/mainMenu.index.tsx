@@ -14,7 +14,7 @@ export default function MyPageMainMenu() {
           {userData?.fetchUserLoggedIn.userPoint?.amount} 원
         </info.InfoPoint>
         <info.InfoMyShop onClick={onClickMoveToPage("/mypage/isold")}>내 장터</info.InfoMyShop>
-        <info.InfoMyPoint>내 포인트</info.InfoMyPoint>
+        <info.InfoMyPoint onClick={onClickMoveToPage("/mypage")}>내 포인트</info.InfoMyPoint>
         <info.InfoMyProfile>내 프로필</info.InfoMyProfile>
       </info.InfoWrapper>
     </>

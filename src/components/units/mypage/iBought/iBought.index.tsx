@@ -5,7 +5,7 @@ import Search from "../../../commons/search/search.index";
 import { useState } from "react";
 import IBoughtPageItem from "./iBoughtItem.index";
 import useFetchIBought from "../../../../commons/hook/custom/useFetchIBought";
-import MoveMyPage from "../../../commons/moveMyPage/moveMyPage.index";
+import MoveMyPage from "../../../commons/moveMyPage/moveMyPointInfoPage.index";
 // import Search from "../../commons/search/search.index";
 
 export default function IBoughtPage(): JSX.Element {

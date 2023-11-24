@@ -4,7 +4,7 @@ import Pagination from "../../../commons/pagination/index.index";
 import Search from "../../../commons/search/search.index";
 import { useState } from "react";
 import IBoughtPageItem from "./iChargeItem.index";
-import MoveMyPage from "../../../commons/moveMyPage/moveMyPage.index";
+import MoveMyPage from "../../../commons/moveMyPage/moveMyPointInfoPage.index";
 import useFetchPointTransactionsOfLoading from "../../../../commons/hook/custom/useFetchPointTransactionsOfLoading";
 
 export default function IChargePage(): JSX.Element {
