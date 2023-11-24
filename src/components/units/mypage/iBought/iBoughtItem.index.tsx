@@ -16,7 +16,7 @@ export default function IBoughtPageItem(props: IMypageItemPros): JSX.Element {
         <info.Num>{props.index + 1}</info.Num>
         <info.Title>{props.el.name} </info.Title>
         <info.Price>{props.el.remarks}</info.Price>
-        <info.Date>{getDate(props.el.price)}</info.Date>
+        <info.Date>-{props.el.price}원</info.Date>
       </info.Post>
     </>
   );

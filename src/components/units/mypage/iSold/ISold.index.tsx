@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import MyPageItem from "./ISoldItem.index";
 import Pagination from "../../../commons/pagination/index.index";
 import Search from "../../../commons/search/search.index";
-import { useQueryFetchUseditemsISold } from "../../../../commons/hook/query/useQueryFetchBoardsOfMine";
+import { useQueryFetchUseditemsISold } from "../../../../commons/hook/query/useQueryFetchUseditemsISold";
 import UseQueryFetchUseditemsCountISold from "../../../../commons/hook/query/useQueryFetchUseditemsCountISold";
 import { useState } from "react";
 import MoveMyPage from "../../../commons/moveMyPage/moveMyPage.index";

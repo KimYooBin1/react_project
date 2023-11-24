@@ -8,6 +8,6 @@ const FETCH_I_SELLING_COUNT = gql`
 `
 
 export default function useQueryFetchPointTransactionsCountOfSelling(){
-    const query = useQuery<Pick<IQuery, "fetchPointTransactionsCountOfSelling">, IQueryFetchPointTransactionsOfSellingArgs>(FETCH_I_SELLING_COUNT)
+    const query = useQuery<Pick<IQuery, "fetchPointTransactionsCountOfSelling">>(FETCH_I_SELLING_COUNT)
     return query;
 }

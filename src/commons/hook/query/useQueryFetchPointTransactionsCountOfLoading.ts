@@ -8,6 +8,6 @@ const FETCH_POINT_LOADING_COUNT = gql`
 `
 
 export default function useQueryFetchPointTransactionsCountOfLoading(){
-    const query = useQuery<Pick<IQuery,"fetchPointTransactionsCountOfLoading">, IQueryFetchPointTransactionsOfLoadingArgs>(FETCH_POINT_LOADING_COUNT);
+    const query = useQuery<Pick<IQuery,"fetchPointTransactionsCountOfLoading">>(FETCH_POINT_LOADING_COUNT);
     return query
 }
