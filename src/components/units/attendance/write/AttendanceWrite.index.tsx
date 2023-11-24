@@ -22,6 +22,7 @@ export default function AttendebceWrite(): JSX.Element {
               type="text"
               placeholder="이름을 적어주세요."
               {...register("writer")}
+              className="writer"
             ></info.TextBox>
             <info.ErrText>{formState.errors.writer?.message}</info.ErrText>
           </info.Box>
@@ -31,6 +32,7 @@ export default function AttendebceWrite(): JSX.Element {
           <info.TextBox
             type="text"
             placeholder="제목을 입력해주세요."
+            className="title"
             {...register("title")}
           ></info.TextBox>
           <info.ErrText>{formState.errors.title?.message}</info.ErrText>
@@ -39,6 +41,7 @@ export default function AttendebceWrite(): JSX.Element {
           <info.Title>내용</info.Title>
           <info.TextBox1
             placeholder="내용을 입력해주세요."
+            className="contents"
             {...register("contents")}
           ></info.TextBox1>
           <info.ErrText>{formState.errors.contents?.message}</info.ErrText>

@@ -40,6 +40,7 @@ export default function LoginPage(): JSX.Element {
               type="text"
               placeholder="Email"
               {...register("email")}
+              className="email"
             />
             <info.ErrorMessage>
               {formState.errors.email?.message}
@@ -49,6 +50,7 @@ export default function LoginPage(): JSX.Element {
               {...register("password")}
               placeholder="password"
               maxLength={16}
+              className="password"
             />
             <info.ErrorMessage>
               {formState.errors.password?.message}
@@ -63,6 +65,7 @@ export default function LoginPage(): JSX.Element {
             onClick={handleSubmit(onClickSubmit)}
             disabled={!formState.isValid}
             isSubmit={formState.isValid}
+            className="submit"
           >
             sign in
           </info.SubmitBtn>

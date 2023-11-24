@@ -66,6 +66,7 @@ export default function ShopBoardWrite(
             defaultValue={data?.fetchUseditem.name}
             placeholder="상품명을 입력해주세요."
             {...register("name")}
+            className="name"
           ></info.TextBox>
           <info.ErrText>{formState.errors.name?.message}</info.ErrText>
         </info.Box>
@@ -74,8 +75,9 @@ export default function ShopBoardWrite(
           <info.TextBox
             type="text"
             defaultValue={data?.fetchUseditem.remarks}
-            placeholder="상품명을 입력해주세요."
+            placeholder="상품설명 입력해주세요."
             {...register("remarks")}
+            className="remarks"
           ></info.TextBox>
           <info.ErrText>{formState.errors.remarks?.message}</info.ErrText>
         </info.Box>
@@ -87,6 +89,7 @@ export default function ShopBoardWrite(
               placeholder="내용을 입력해주세요."
               onChange={onChangeContent}
               defaultValue={data?.fetchUseditem.contents}
+              className="contents"
             ></ReactQuill>
           )}
           <info.ErrText>{formState.errors.contents?.message}</info.ErrText>
@@ -99,6 +102,7 @@ export default function ShopBoardWrite(
               placeholder="0 ₩"
               defaultValue={String(data?.fetchUseditem.price ?? "")}
               {...register("price")}
+              className="pirce"
             ></info.TextBox>
           )}
           <info.ErrText>{formState.errors.price?.message}</info.ErrText>
@@ -136,8 +140,9 @@ export default function ShopBoardWrite(
                 ? data?.fetchUseditem.useditemAddress?.zipcode ?? ""
                 : watch("zipcode")
             }
+            className="zipcode"
           ></info.TextBox2>
-          <info.Btn1 onClick={onClickAddress}>우편번호 검색</info.Btn1>
+          <info.Btn1 onClick={onClickAddress} className="searchAddress">우편번호 검색</info.Btn1>
           <info.TextBox2
             type="text"
             placeholder="위도"
@@ -145,6 +150,7 @@ export default function ShopBoardWrite(
             value={
               lat === 0 ? data?.fetchUseditem.useditemAddress?.lat ?? "" : lat
             }
+            className="latitude "
           ></info.TextBox2>
           <info.TextBox2
             type="text"
@@ -153,6 +159,7 @@ export default function ShopBoardWrite(
             value={
               lng === 0 ? data?.fetchUseditem.useditemAddress?.lng ?? "" : lng
             }
+            className="longitude "
           ></info.TextBox2>
           <info.TextBox
             type="text"
@@ -163,6 +170,7 @@ export default function ShopBoardWrite(
                 ? data?.fetchUseditem.useditemAddress?.address ?? ""
                 : watch("address")
             }
+            className="address"
           ></info.TextBox>
           <info.TextBox
             type="text"
@@ -170,6 +178,7 @@ export default function ShopBoardWrite(
             defaultValue={
               data?.fetchUseditem.useditemAddress?.addressDetail ?? ""
             }
+            className="addressDetail"
           ></info.TextBox>
           <info.ErrText>{formState.errors.addressDetail?.message}</info.ErrText>
         </info.Box>
@@ -194,6 +203,7 @@ export default function ShopBoardWrite(
           }
           // disabled={!formState.isValid}
           isValid={formState.isValid}
+          className="submit"
         >
           {props.isEdit ? "수정" : "등록"}하기
         </info.Btn>

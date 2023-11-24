@@ -27,7 +27,7 @@ export default function OpenapiList(): JSX.Element {
             <info.ImgDog src={el} key={el} />
           ))}
         </info.ImgBox>
-        <info.Btn onClick={onClickBtn}>다른 시바시바</info.Btn>
+        <info.Btn onClick={onClickBtn} className="btn">다른 사진</info.Btn>
       </info.Wrapper>
     </info.Body>
   );

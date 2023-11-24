@@ -6,7 +6,7 @@ const NAVIGATION_MENUS = [
   { name: "라이브게시판", page: "/boards/page" },
   { name: "라이브상품", page: "/shopboards/page" },
   { name: "마이페이지", page: "/mypage" },
-  { name: "시바시바", page: "/openapi" },
+  { name: "시바갤러리", page: "/openapi" },
 ];
 export default function LayoutNavigation(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
@@ -15,7 +15,7 @@ export default function LayoutNavigation(): JSX.Element {
     <S.Wrapper>
       <S.BtnWrapper>
         {NAVIGATION_MENUS.map((el) => (
-          <S.MenuBtn key={el.page} onClick={onClickMoveToPage(el.page)}>
+          <S.MenuBtn key={el.page} onClick={onClickMoveToPage(el.page)} className={el.name}>
             {el.name}
           </S.MenuBtn>
         ))}

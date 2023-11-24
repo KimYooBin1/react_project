@@ -32,7 +32,7 @@ export default function LayoutHeader(): JSX.Element {
   const content = (
     <S.UserBox>
       <S.ProfileBox>
-        <S.ProfileImg src="/img/profile.png" />
+        <S.ProfileImg src="/img/profile.png"/>
         <S.ProfileInfoBox>
           <S.ProfileInfoText>{data?.fetchUserLoggedIn.name}</S.ProfileInfoText>
           <S.ProfileInfoText>{data?.fetchUserLoggedIn.email}</S.ProfileInfoText>
@@ -41,7 +41,7 @@ export default function LayoutHeader(): JSX.Element {
       <S.ProfileBtn onClick={onClickMoveToPage("/mypage/payment")}>
         충전하기
       </S.ProfileBtn>
-      <S.ProfileBtn onClick={onClickLogout}>로그아웃</S.ProfileBtn>
+      <S.ProfileBtn onClick={onClickLogout} className="logout">로그아웃</S.ProfileBtn>
     </S.UserBox>
   );
 
@@ -51,10 +51,11 @@ export default function LayoutHeader(): JSX.Element {
         rev={""}
         style={{ fontSize: "50px" }}
         onClick={onClickMoveToPage("/boards/page")}
+        className="logo"
       />
-      <S.LoginWrapper>
+      <S.LoginWrapper >
         {isLogin ? (
-          <Space wrap>
+          <Space wrap >
             <Popover
               content={content}
               trigger="hover"
@@ -64,15 +65,16 @@ export default function LayoutHeader(): JSX.Element {
                 src="/img/profile.png"
                 style={{ cursor: "pointer" }}
                 onClick={onClickMoveToPage("/mypage")}
+                className="userlogo"
               />
             </Popover>
           </Space>
         ) : (
           <>
-            <S.LoginBtn onClick={onClickMoveToPage("/login")}>
+            <S.LoginBtn onClick={onClickMoveToPage("/login")} className="login">
               로그인
             </S.LoginBtn>
-            <S.SignBtn onClick={onClickMoveToPage("/signup")}>
+            <S.SignBtn onClick={onClickMoveToPage("/signup")} className="signup">
               회원가입
             </S.SignBtn>
           </>

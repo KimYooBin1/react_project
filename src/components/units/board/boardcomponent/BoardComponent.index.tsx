@@ -54,6 +54,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
               {...register("writer")}
               defaultValue={data?.fetchBoard.writer ?? ""}
               readOnly={Boolean(data?.fetchBoard?.writer)}
+              className="writer"
             ></info.TextBox>
             <info.ErrText>{formState.errors.writer?.message}</info.ErrText>
           </info.Box>
@@ -63,6 +64,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
               type="password"
               placeholder="비밀번호를 입력해주세요"
               {...register("password")}
+              className="password"
             />
             <info.ErrText>{formState.errors.password?.message}</info.ErrText>
           </info.Box>
@@ -74,6 +76,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
             placeholder="제목을 입력해주세요."
             {...register("title")}
             defaultValue={data?.fetchBoard?.title}
+            className="title"
           ></info.TextBox>
           <info.ErrText>{formState.errors.title?.message}</info.ErrText>
         </info.Box>
@@ -86,6 +89,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
               placeholder="내용을 입력해주세요."
               onChange={onChangeContent}
               defaultValue={data?.fetchBoard?.contents}
+              className="contents"
             ></ReactQuill>
           )}
           <info.ErrText>{formState.errors.contents?.message}</info.ErrText>
@@ -102,6 +106,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
                 ? zipcode
                 : data?.fetchBoard.boardAddress?.zipcode ?? ""
             }
+            className="zipcode"
           ></info.TextBox2>
           <info.Btn1 onClick={onClickAddress}>우편번호 검색</info.Btn1>
           <info.TextBox
@@ -113,11 +118,13 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
                 ? address
                 : data?.fetchBoard.boardAddress?.address ?? ""
             }
+            className="address"
           ></info.TextBox>
           <info.TextBox
             type="text"
             {...register("addressDetail")}
             defaultValue={data?.fetchBoard.boardAddress?.addressDetail ?? ""}
+              className="addressDetail"
           ></info.TextBox>
           <info.ErrText>{formState.errors.addressDetail?.message}</info.ErrText>
         </info.Box>
@@ -128,6 +135,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
             placeholder="링크를 복사해주세요."
             {...register("youtubeUrl")}
             defaultValue={data?.fetchBoard.youtubeUrl ?? ""}
+            className="youtube"
           ></info.TextBox>
           <info.ErrText>{formState.errors.youtubeUrl?.message}</info.ErrText>
         </info.Box>
@@ -161,6 +169,7 @@ export default function BoardWrite(props: IBoardComponent): JSX.Element {
           }
           isValid={formState.isValid}
           // disabled={!formState.isValid}
+          className="submit"
         >
           {props.isEdit ? "수정" : "등록"}하기
         </info.Btn>
