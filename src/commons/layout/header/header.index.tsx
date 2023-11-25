@@ -16,23 +16,30 @@ export default function LayoutHeader(): JSX.Element {
   const [logout] = useMutationLogoutUser();
   const { onClickMoveToPage } = useMoveToPage();
 
-  const {router,preAddress,setPreAddress} = useSaveAddress();
+  const { router, preAddress, setPreAddress } = useSaveAddress();
 
-  const onClickLogout =  (): void => {
+  const onErrorImg = (e: any) => {
+    e.target.src = "/img/profile.png";
+  };
+
+  const onClickLogout = (): void => {
     setPreAddress((prev) => router.asPath);
     setIsLogin(false);
     setAccessToken("");
     void logout();
     success("로그아웃");
-    console.log(preAddress)
-    void router.push(`${preAddress}`)
+    console.log(preAddress);
+    void router.push(`${preAddress}`);
   };
   const { data } = useQueryFetchUserLoggedIn();
 
   const content = (
     <S.UserBox>
       <S.ProfileBox>
-        <S.ProfileImg src="/img/profile.png"/>
+        <S.ProfileImg
+          onError={onErrorImg}
+          src={data?.fetchUserLoggedIn.picture ?? ""}
+        />
         <S.ProfileInfoBox>
           <S.ProfileInfoText>{data?.fetchUserLoggedIn.name}</S.ProfileInfoText>
           <S.ProfileInfoText>{data?.fetchUserLoggedIn.email}</S.ProfileInfoText>
@@ -41,7 +48,9 @@ export default function LayoutHeader(): JSX.Element {
       <S.ProfileBtn onClick={onClickMoveToPage("/mypage/payment")}>
         충전하기
       </S.ProfileBtn>
-      <S.ProfileBtn onClick={onClickLogout} className="logout">로그아웃</S.ProfileBtn>
+      <S.ProfileBtn onClick={onClickLogout} className="logout">
+        로그아웃
+      </S.ProfileBtn>
     </S.UserBox>
   );
 
@@ -53,17 +62,23 @@ export default function LayoutHeader(): JSX.Element {
         onClick={onClickMoveToPage("/boards/page")}
         className="logo"
       />
-      <S.LoginWrapper >
+      <S.LoginWrapper>
         {isLogin ? (
-          <Space wrap >
+          <Space wrap>
             <Popover
               content={content}
               trigger="hover"
               style={{ backgroundColor: "blue" }}
             >
               <img
-                src="/img/profile.png"
-                style={{ cursor: "pointer" }}
+                onError={onErrorImg}
+                src={data?.fetchUserLoggedIn.picture ?? ""}
+                style={{
+                  cursor: "pointer",
+                  objectFit: "cover",
+                  width: "75px ",
+                  height: "75px",
+                }}
                 onClick={onClickMoveToPage("/mypage")}
                 className="userlogo"
               />
@@ -74,7 +89,10 @@ export default function LayoutHeader(): JSX.Element {
             <S.LoginBtn onClick={onClickMoveToPage("/login")} className="login">
               로그인
             </S.LoginBtn>
-            <S.SignBtn onClick={onClickMoveToPage("/signup")} className="signup">
+            <S.SignBtn
+              onClick={onClickMoveToPage("/signup")}
+              className="signup"
+            >
               회원가입
             </S.SignBtn>
           </>

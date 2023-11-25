@@ -6,11 +6,20 @@ export default function MyPageMainMenu() {
   useAuth();
   const { data: userData } = useQueryFetchUserLoggedIn();
   const { onClickMoveToPage } = useMoveToPage();
+
+  const onErrorImg = (e: any) => {
+    e.target.src = "/img/profile.png";
+  };
+
   return (
     <>
       <info.InfoWrapper>
         <info.UserInfoTitle>MYPAGE</info.UserInfoTitle>
-        <info.InfoImg src="/img/profile.png" />
+        <info.InfoImg
+          onError={onErrorImg}
+          src={userData?.fetchUserLoggedIn.picture ?? ""}
+          onClick={onClickMoveToPage("/mypage/edit")}
+        />
         <info.InfoName>{userData?.fetchUserLoggedIn.name}</info.InfoName>
         <info.InfoPoint>
           {userData?.fetchUserLoggedIn.userPoint?.amount} 원

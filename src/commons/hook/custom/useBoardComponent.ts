@@ -204,6 +204,7 @@ export const useBoardComponent = (arg: IUseBoardComponent) => {
     }
   };
 
+  //문제 코드를 upload 파일에 합칠수 있을거 같다.
   const onChangeFileUrl = (file: File, index: number): void => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
