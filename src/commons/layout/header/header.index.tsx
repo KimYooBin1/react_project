@@ -8,8 +8,9 @@ import { useMoveToPage } from "../../hook/custom/useMoveToPage";
 import { useQueryFetchUserLoggedIn } from "../../hook/query/useQueryFetchUserLoggedIn";
 import { useMutationLogoutUser } from "../../hook/mutation/useMutationLogout";
 import useSaveAddress from "../../hook/custom/useSaveAddress";
+import { memo } from "react";
 
-export default function LayoutHeader(): JSX.Element {
+function LayoutHeader(): JSX.Element {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
   const [, setAccessToken] = useRecoilState(accessTokenState);
 
@@ -101,3 +102,5 @@ export default function LayoutHeader(): JSX.Element {
     </S.Wrapper>
   );
 }
+
+export default memo(LayoutHeader);
