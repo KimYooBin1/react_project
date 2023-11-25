@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";import { useAuth } from "../../../src/commons/hook/custom/useAuth";
+import styled from "@emotion/styled";
 import MyPageMain from "../../../src/components/units/mypage/mainMenu/mainMenu.index";
 import ISoldPage from "../../../src/components/units/mypage/iSold/ISold.index";
 
@@ -9,7 +9,6 @@ const Body = styled.div`
 `;
 
 export default function MyPageBoard(): JSX.Element {
-  useAuth();
   return (
     <Body>
       <MyPageMain />
