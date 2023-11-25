@@ -1,7 +1,8 @@
 import { Carousel } from "antd";
 import { contentStyle } from "./banner.styled";
+import { memo } from "react";
 
-export default function LayoutBanner(): JSX.Element {
+function LayoutBanner(): JSX.Element {
   return (
     <Carousel autoplay>
       <div>
@@ -20,3 +21,5 @@ export default function LayoutBanner(): JSX.Element {
     </Carousel>
   );
 }
+
+export default memo(LayoutBanner);

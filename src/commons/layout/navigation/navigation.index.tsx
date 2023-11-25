@@ -1,5 +1,6 @@
 import * as S from "./navigation.styled";
 import { useMoveToPage } from "../../hook/custom/useMoveToPage";
+import { memo } from "react";
 
 const NAVIGATION_MENUS = [
   { name: "출석부", page: "/attendance" },
@@ -8,14 +9,18 @@ const NAVIGATION_MENUS = [
   { name: "마이페이지", page: "/mypage" },
   { name: "시바갤러리", page: "/openapi" },
 ];
-export default function LayoutNavigation(): JSX.Element {
+function LayoutNavigation(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
 
   return (
     <S.Wrapper>
       <S.BtnWrapper>
         {NAVIGATION_MENUS.map((el) => (
-          <S.MenuBtn key={el.page} onClick={onClickMoveToPage(el.page)} className={el.name}>
+          <S.MenuBtn
+            key={el.page}
+            onClick={onClickMoveToPage(el.page)}
+            className={el.name}
+          >
             {el.name}
           </S.MenuBtn>
         ))}
@@ -23,3 +28,4 @@ export default function LayoutNavigation(): JSX.Element {
     </S.Wrapper>
   );
 }
+export default memo(LayoutNavigation);
